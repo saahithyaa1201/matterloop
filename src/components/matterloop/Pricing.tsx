@@ -40,7 +40,7 @@ function PayPalCheckoutButton({
         label: "pay",
         height: 44,
       },
-      createOrder: (_data, actions) => {
+      createOrder: (_data: unknown, actions: any) => {
         return actions.order.create({
           purchase_units: [
             {
@@ -53,7 +53,7 @@ function PayPalCheckoutButton({
           ],
         });
       },
-      onApprove: async (_data, actions) => {
+      onApprove: async (_data: unknown, actions: any) => {
         try {
           const details = await actions.order.capture();
           console.log("PayPal payment approved", details);
@@ -62,7 +62,7 @@ function PayPalCheckoutButton({
           console.error("PayPal payment failed", error);
         }
       },
-      onError: (err) => {
+      onError: (err: unknown) => {
         console.error("PayPal checkout error", err);
       },
     });

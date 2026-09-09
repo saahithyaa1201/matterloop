@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { ArrowRight, Activity, ShieldCheck, Zap } from "lucide-react";
+import { ArrowRight } from "lucide-react";
 import { Eyebrow, Reveal } from "./primitives";
 
 const COOKIE_KEY = "matterloop_cookie_consent";
@@ -68,15 +68,27 @@ export function Hero() {
           {/* Asset Capability Highlights */}
           <div className="mt-16 grid grid-cols-1 gap-4 rounded-xl border border-border bg-surface/40 p-6 backdrop-blur-md sm:grid-cols-3">
             <div className="flex items-center justify-center gap-2.5">
-              <Activity className="h-4 w-4 text-cyan" />
+              <img
+                src="/icons/hero icon.svg"
+                alt="Real-Time Telemetry"
+                className="h-6 w-6 shrink-0 object-contain"
+              />
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Real-Time Telemetry</span>
             </div>
             <div className="flex items-center justify-center gap-2.5 border-t border-border pt-4 sm:border-t-0 sm:border-l sm:pt-0">
-              <ShieldCheck className="h-4 w-4 text-cyan" />
+              <img
+                src="/icons/hero icon (2).svg"
+                alt="Predictive Maintenance"
+                className="h-6 w-6 shrink-0 object-contain"
+              />
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Predictive Maintenance</span>
             </div>
             <div className="flex items-center justify-center gap-2.5 border-t border-border pt-4 sm:border-t-0 sm:border-l sm:pt-0">
-              <Zap className="h-4 w-4 text-cyan" />
+              <img
+                src="/icons/hero icon (3).svg"
+                alt="Supply Chain Data"
+                className="h-6 w-6 shrink-0 object-contain"
+              />
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Supply Chain Data</span>
             </div>
           </div>

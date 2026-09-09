@@ -13,10 +13,14 @@ export function Footer() {
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <div className="flex items-center">
-              <img src="/logo.svg" alt="MatterLoop logo" className="h-20 w-auto object-contain sm:h-24" />
+              <img
+                src="/logo.png"
+                alt="MatterLoop logo"
+                className="h-20 w-auto object-contain sm:h-24"
+              />
             </div>
             <p className="mt-4 max-w-sm text-sm leading-relaxed text-muted-foreground">
-             From physical assets to intelligent action, make every operational moment count.
+              From physical assets to intelligent action, make every operational moment count.
             </p>
             <span className="mt-5 inline-flex items-center gap-2 rounded-full border border-green/40 bg-green/10 px-3 py-1.5 font-mono text-[11px] text-green">
               <span className="live-dot h-1.5 w-1.5 rounded-full bg-green" />
@@ -52,16 +56,28 @@ export function Footer() {
             © {new Date().getFullYear()} MatterLoop.net — All rights reserved.
           </p>
           <div className="flex flex-wrap gap-5">
-            <Link to="/privacy-policy" className="text-xs text-muted-foreground transition-colors hover:text-cyan">
+            <Link
+              to="/privacy-policy"
+              className="text-xs text-muted-foreground transition-colors hover:text-cyan"
+            >
               Privacy
             </Link>
-            <Link to="/terms-and-conditions" className="text-xs text-muted-foreground transition-colors hover:text-cyan">
+            <Link
+              to="/terms-and-conditions"
+              className="text-xs text-muted-foreground transition-colors hover:text-cyan"
+            >
               Terms
             </Link>
-            <a href="#top" className="text-xs text-muted-foreground transition-colors hover:text-cyan">
+            <a
+              href="#top"
+              className="text-xs text-muted-foreground transition-colors hover:text-cyan"
+            >
               Security
             </a>
-            <a href="#top" className="text-xs text-muted-foreground transition-colors hover:text-cyan">
+            <a
+              href="#top"
+              className="text-xs text-muted-foreground transition-colors hover:text-cyan"
+            >
               DPA
             </a>
           </div>

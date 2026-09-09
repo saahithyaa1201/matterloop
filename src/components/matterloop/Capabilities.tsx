@@ -2,28 +2,28 @@ import { Reveal, Section, SectionHeading } from "./primitives";
 
 const caps = [
   {
-    image: "/C.svg",
+    image: "/icons/Capabilities.svg",
     title: "Asset Intelligence Engine",
     desc: "Full asset profiling and continuous condition monitoring across every sensor stream.",
     points: ["Digital asset profiles", "Condition scoring", "Signal fusion"],
     tone: "text-cyan",
   },
   {
-    image: "/C2.svg",
+    image: "/icons/Capabilities (2).svg",
     title: "Lifecycle Management Engine",
     desc: "Deployment, service history and retirement tracked as one continuous lifecycle record.",
     points: ["Deployment ledger", "Maintenance history", "Retirement planning"],
     tone: "text-green",
   },
   {
-    image: "/C3.svg",
+    image: "/icons/Capabilities (3).svg",
     title: "Predictive Maintenance Intelligence",
     desc: "Anomaly detection and early failure indicators before downtime reaches the floor.",
     points: ["Anomaly detection", "Failure indicators", "Alert routing"],
     tone: "text-amber",
   },
   {
-    image: "/C4.svg",
+    image: "/icons/Capabilities (4).svg",
     title: "Asset Utilization Analytics",
     desc: "Capacity, downtime and efficiency analytics tied to real production output.",
     points: ["Capacity modeling", "Downtime attribution", "OEE analytics"],
