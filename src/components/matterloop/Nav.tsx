@@ -8,6 +8,7 @@ const links = [
   { label: "Pricing", href: "#pricing" },
   { label: "Team", href: "#team" },
   { label: "API Docs", href: "#api" },
+  { label: "Contact", href: "#contact" },
 ];
 
 export function Nav() {

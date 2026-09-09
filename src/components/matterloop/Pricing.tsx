@@ -317,7 +317,7 @@ export function Pricing() {
                     )
                   ) : (
                     <a
-                      href="#top"
+                      href="#contact"
                       className="group flex w-full items-center justify-center gap-2 rounded-xl border border-cyan/60 bg-cyan/10 py-3.5 text-center text-sm font-bold text-cyan transition-all duration-300 hover:bg-cyan hover:text-primary-foreground hover:shadow-lg hover:shadow-cyan/20"
                     >
                       {t.cta}

@@ -8,6 +8,7 @@ import { Testimonials } from "@/components/matterloop/Testimonials";
 import { Team } from "@/components/matterloop/Team";
 import { ApiTerminal } from "@/components/matterloop/ApiTerminal";
 import { Pricing } from "@/components/matterloop/Pricing";
+import { Contact } from "@/components/matterloop/Contact";
 import { Footer } from "@/components/matterloop/Footer";
 import { Section, SectionHeading, Eyebrow } from "@/components/matterloop/primitives";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -97,6 +98,8 @@ function Index() {
             </div>
           </div>
         </Section>
+
+        <Contact />
 
         <Section id="faq" className="pt-0 pb-12 md:pb-20">
           <SectionHeading
