@@ -20,7 +20,7 @@ export function Nav() {
           <img
             src="/logo.png"
             alt="MatterLoop logo"
-            className="h-20 w-auto object-contain sm:h-24"
+            className="h-10 w-auto object-contain sm:h-12"
           />
         </a>
 
