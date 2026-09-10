@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import { motion } from "motion/react";
 import {
   Mail,
@@ -13,10 +13,31 @@ import {
   Wrench,
   Network,
   Radio,
-  Send,
   Loader2,
 } from "lucide-react";
 import { Reveal, Section, SectionHeading } from "./primitives";
+
+declare global {
+  interface Window {
+    turnstile?: {
+      render: (
+        container: HTMLElement | string,
+        params: {
+          sitekey: string;
+          theme?: "light" | "dark" | "auto";
+          callback?: (token: string) => void;
+          "error-callback"?: () => void;
+          "expired-callback"?: () => void;
+          size?: "normal" | "flexible" | "compact";
+          appearance?: "always" | "execute" | "interaction-only";
+        }
+      ) => string;
+      reset: (widgetId: string) => void;
+      remove: (widgetId: string) => void;
+      getResponse: (widgetId?: string) => string;
+    };
+  }
+}
 
 const assetNodes = [
   { label: "Machines", icon: Cpu },
@@ -53,6 +74,9 @@ interface FormData {
   requirements: string;
 }
 
+const FORMSPREE_ENDPOINT = "https://formspree.io/f/mwlkwdkl";
+const TURNSTILE_SITE_KEY = "0x4AAAAAAEtvUWgw9Ev44lSb";
+
 export function Contact() {
   const [formData, setFormData] = useState<FormData>({
     fullName: "",
@@ -66,28 +90,198 @@ export function Contact() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [turnstileToken, setTurnstileToken] = useState("");
+
+  const turnstileContainerRef = useRef<HTMLDivElement | null>(null);
+  const widgetIdRef = useRef<string | null>(null);
+
+  // Initialize Cloudflare Turnstile
+  useEffect(() => {
+    let isMounted = true;
+    let pollInterval: ReturnType<typeof setInterval> | null = null;
+
+    const renderWidget = () => {
+      if (!turnstileContainerRef.current || !window.turnstile || widgetIdRef.current) return;
+      try {
+        const widgetId = window.turnstile.render(turnstileContainerRef.current, {
+          sitekey: TURNSTILE_SITE_KEY,
+          theme: "dark",
+          size: "flexible",
+          callback: (token: string) => {
+            if (isMounted) {
+              setTurnstileToken(token);
+              setErrorMessage("");
+            }
+          },
+          "expired-callback": () => {
+            if (isMounted) {
+              setTurnstileToken("");
+            }
+          },
+          "error-callback": () => {
+            if (isMounted) {
+              setTurnstileToken("");
+              setErrorMessage("Please complete the security verification and try again.");
+            }
+          },
+        });
+        widgetIdRef.current = widgetId;
+        if (pollInterval) clearInterval(pollInterval);
+      } catch {
+        // Container may not be rendered yet
+      }
+    };
+
+    if (window.turnstile) {
+      renderWidget();
+    } else {
+      pollInterval = setInterval(() => {
+        if (window.turnstile) {
+          renderWidget();
+        }
+      }, 250);
+    }
+
+    return () => {
+      isMounted = false;
+      if (pollInterval) clearInterval(pollInterval);
+      if (widgetIdRef.current && window.turnstile) {
+        try {
+          window.turnstile.remove(widgetIdRef.current);
+        } catch {
+          // ignore cleanup errors
+        }
+        widgetIdRef.current = null;
+      }
+    };
+  }, [isSubmitted]);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    const keyMap: Record<string, keyof FormData> = {
+      name: "fullName",
+      fullName: "fullName",
+      email: "email",
+      company: "company",
+      job_title: "jobTitle",
+      jobTitle: "jobTitle",
+      inquiry_type: "topic",
+      topic: "topic",
+      message: "requirements",
+      requirements: "requirements",
+    };
+    const formKey = keyMap[name] || (name as keyof FormData);
+    setFormData((prev) => ({ ...prev, [formKey]: value }));
     if (errorMessage) setErrorMessage("");
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!formData.fullName || !formData.email || !formData.company || !formData.topic || !formData.requirements) {
+    setErrorMessage("");
+
+    // Field validation
+    if (
+      !formData.fullName.trim() ||
+      !formData.email.trim() ||
+      !formData.company.trim() ||
+      !formData.topic ||
+      !formData.requirements.trim()
+    ) {
       setErrorMessage("Please fill out all required operational fields.");
       return;
     }
 
+    // Email format validation
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(formData.email.trim())) {
+      setErrorMessage("Please provide a valid work email address.");
+      return;
+    }
+
+    // Turnstile validation
+    const activeToken =
+      turnstileToken ||
+      (widgetIdRef.current && window.turnstile
+        ? window.turnstile.getResponse(widgetIdRef.current)
+        : "");
+
+    if (!activeToken) {
+      setErrorMessage("Please complete the security verification and try again.");
+      return;
+    }
+
     setIsSubmitting(true);
-    // Simulate industrial API transaction
-    setTimeout(() => {
+
+    try {
+      const response = await fetch(FORMSPREE_ENDPOINT, {
+        method: "POST",
+        headers: {
+          Accept: "application/json",
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: formData.fullName.trim(),
+          email: formData.email.trim(),
+          company: formData.company.trim(),
+          job_title: formData.jobTitle.trim() || "Unspecified",
+          inquiry_type: formData.topic,
+          message: formData.requirements.trim(),
+          "cf-turnstile-response": activeToken,
+        }),
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true);
+        setFormData({
+          fullName: "",
+          email: "",
+          company: "",
+          jobTitle: "",
+          topic: "",
+          requirements: "",
+        });
+        setTurnstileToken("");
+        if (widgetIdRef.current && window.turnstile) {
+          try {
+            window.turnstile.reset(widgetIdRef.current);
+          } catch {
+            // ignore
+          }
+        }
+      } else {
+        const errorData = await response.json().catch(() => null);
+        if (errorData && Array.isArray(errorData.errors) && errorData.errors.length > 0) {
+          const joinedErrors = errorData.errors
+            .map((err: { message: string }) => err.message)
+            .join(". ");
+          setErrorMessage(joinedErrors || "We couldn't send your inquiry right now. Please try again in a moment.");
+        } else {
+          setErrorMessage("We couldn't send your inquiry right now. Please try again in a moment.");
+        }
+        if (widgetIdRef.current && window.turnstile) {
+          try {
+            window.turnstile.reset(widgetIdRef.current);
+          } catch {
+            // ignore
+          }
+          setTurnstileToken("");
+        }
+      }
+    } catch {
+      setErrorMessage("We couldn't send your inquiry right now. Please try again in a moment.");
+      if (widgetIdRef.current && window.turnstile) {
+        try {
+          window.turnstile.reset(widgetIdRef.current);
+        } catch {
+          // ignore
+        }
+        setTurnstileToken("");
+      }
+    } finally {
       setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 900);
+    }
   };
 
   const handleReset = () => {
@@ -101,6 +295,7 @@ export function Contact() {
     });
     setIsSubmitted(false);
     setErrorMessage("");
+    setTurnstileToken("");
   };
 
   return (
@@ -323,18 +518,18 @@ export function Contact() {
                   <CheckCircle2 className="h-8 w-8" />
                 </div>
                 <h4 className="mt-5 text-xl font-bold text-foreground">
-                  Inquiry Received
+                  Inquiry received.
                 </h4>
                 <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
-                  Thank you for reaching out, <span className="font-semibold text-foreground">{formData.fullName}</span>. An industrial solutions specialist has received your requirements for <span className="font-semibold text-foreground">{formData.company}</span> and will respond within 4 operational hours.
+                  Thank you for contacting MatterLoop. Our team will review your message and get back to you shortly.
                 </p>
                 <div className="mt-8">
                   <button
                     type="button"
                     onClick={handleReset}
-                    className="inline-flex items-center gap-2 rounded-xl border border-cyan/60 bg-cyan/10 px-5 py-2.5 text-xs font-bold tracking-wider uppercase text-cyan transition-all hover:bg-cyan hover:text-primary-foreground"
+                    className="inline-flex items-center gap-2 rounded-xl border border-cyan/60 bg-cyan/10 px-5 py-2.5 text-xs font-bold tracking-wider uppercase text-cyan transition-all hover:bg-cyan hover:text-primary-foreground cursor-pointer"
                   >
-                    Submit Another Inquiry
+                    Send another inquiry
                   </button>
                 </div>
               </motion.div>
@@ -357,7 +552,7 @@ export function Contact() {
                     </label>
                     <input
                       id="fullName"
-                      name="fullName"
+                      name="name"
                       type="text"
                       required
                       value={formData.fullName}
@@ -419,7 +614,7 @@ export function Contact() {
                     </label>
                     <input
                       id="jobTitle"
-                      name="jobTitle"
+                      name="job_title"
                       type="text"
                       value={formData.jobTitle}
                       onChange={handleChange}
@@ -439,7 +634,7 @@ export function Contact() {
                   </label>
                   <select
                     id="topic"
-                    name="topic"
+                    name="inquiry_type"
                     required
                     value={formData.topic}
                     onChange={handleChange}
@@ -466,7 +661,7 @@ export function Contact() {
                   </label>
                   <textarea
                     id="requirements"
-                    name="requirements"
+                    name="message"
                     rows={4}
                     required
                     value={formData.requirements}
@@ -476,8 +671,13 @@ export function Contact() {
                   />
                 </div>
 
+                {/* Cloudflare Turnstile Container */}
+                <div className="py-1">
+                  <div ref={turnstileContainerRef} className="cf-turnstile min-h-[65px]" />
+                </div>
+
                 {/* Primary CTA button */}
-                <div className="pt-2">
+                <div className="pt-1">
                   <button
                     type="submit"
                     disabled={isSubmitting}
@@ -486,7 +686,7 @@ export function Contact() {
                     {isSubmitting ? (
                       <>
                         <Loader2 className="h-4 w-4 animate-spin" />
-                        <span>Transmitting Inquiry…</span>
+                        <span>Sending…</span>
                       </>
                     ) : (
                       <>

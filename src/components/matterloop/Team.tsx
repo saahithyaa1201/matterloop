@@ -1,6 +1,6 @@
 import { useState } from "react";
-import { Github, Linkedin, Pause, Play } from "lucide-react";
-import { Reveal, Section, SectionHeading } from "./primitives";
+import { Pause, Play } from "lucide-react";
+import { Reveal, SectionHeading } from "./primitives";
 
 const team = [
   {
@@ -46,14 +46,19 @@ export function Team() {
   const marqueeMembers = [...team, ...team];
 
   return (
-    <Section id="team">
-      <SectionHeading
-        eyebrow="Leadership"
-        title="Built by Industrial AI Pioneers"
-        subtitle="Reliability engineers, data architects and edge specialists who've run real production floors."
+    <section id="team" className="relative w-full overflow-hidden py-20 md:py-28">
+      <div
+        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
+        style={{ backgroundImage: "url('/Leadership.svg')" }}
       />
+      <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
+        <SectionHeading
+          eyebrow="Leadership"
+          title="Built by Industrial AI Pioneers"
+          subtitle="Reliability engineers, data architects and edge specialists who've run real production floors."
+        />
 
-      <div className="mt-6 flex justify-end">
+        <div className="mt-6 flex justify-end">
         <button
           type="button"
           onClick={() => setPaused((value) => !value)}
@@ -81,27 +86,12 @@ export function Team() {
                   {m.role}
                 </p>
                 <p className="mt-3 text-xs leading-relaxed text-muted-foreground">{m.bio}</p>
-                <div className="mt-5 flex items-center justify-center gap-2">
-                  <a
-                    href="#team"
-                    aria-label={`${m.name} on LinkedIn`}
-                    className="grid h-8 w-8 place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:border-[#75553c]/50 hover:text-[#75553c]"
-                  >
-                    <Linkedin className="h-4 w-4" />
-                  </a>
-                  <a
-                    href="#team"
-                    aria-label={`${m.name} on GitHub`}
-                    className="grid h-8 w-8 place-items-center rounded-lg border border-border text-muted-foreground transition-colors hover:border-[#75553c]/50 hover:text-[#75553c]"
-                  >
-                    <Github className="h-4 w-4" />
-                  </a>
-                </div>
               </div>
             </Reveal>
           ))}
         </div>
       </div>
-    </Section>
+      </div>
+    </section>
   );
 }

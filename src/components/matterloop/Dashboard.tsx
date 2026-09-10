@@ -1,183 +1,287 @@
-import { useEffect, useState } from "react";
-import { motion, AnimatePresence } from "motion/react";
-import { Activity, Thermometer, AlertTriangle, Gauge, ArrowUpRight } from "lucide-react";
-import { Reveal, SectionHeading, Section } from "./primitives";
-
-const tabs = ["Overview", "Fleet Health", "Predictive Alerts", "Utilization"] as const;
-type Tab = (typeof tabs)[number];
-
-const metrics = [
-  { label: "Active Assets", value: "14,280", delta: "+2.4%", tone: "text-green" },
-  { label: "Fleet Health", value: "98.4%", delta: "nominal", tone: "text-cyan" },
-  { label: "Utilization Rate", value: "87.2%", delta: "+1.1%", tone: "text-cyan" },
-  { label: "Predictive Alerts", value: "3 Critical", delta: "action required", tone: "text-amber" },
-];
-
-type Asset = {
-  name: string;
-  id: string;
-  temp: number;
-  health: number;
-  status: "Operational" | "Warning" | "Critical" | "Maintenance";
-};
-
-const assetsByTab: Record<Tab, Asset[]> = {
-  Overview: [
-    { name: "CNC Milling Array #04", id: "AST-4021", temp: 62, health: 96, status: "Operational" },
-    { name: "Robotic Arm Unit 12", id: "AST-1120", temp: 71, health: 88, status: "Warning" },
-    { name: "Conveyor Line B", id: "AST-0308", temp: 44, health: 99, status: "Operational" },
-  ],
-  "Fleet Health": [
-    { name: "Hydraulic Press P-7", id: "AST-7702", temp: 58, health: 93, status: "Operational" },
-    { name: "AGV Fleet Cluster 3", id: "AST-3310", temp: 39, health: 97, status: "Operational" },
-    { name: "Injection Molder M-2", id: "AST-2204", temp: 84, health: 74, status: "Maintenance" },
-  ],
-  "Predictive Alerts": [
-    { name: "Spindle Motor SM-19", id: "AST-1904", temp: 97, health: 41, status: "Critical" },
-    { name: "Cooling Pump CP-05", id: "AST-0512", temp: 88, health: 57, status: "Critical" },
-    { name: "Robotic Arm Unit 12", id: "AST-1120", temp: 79, health: 66, status: "Warning" },
-  ],
-  Utilization: [
-    { name: "CNC Milling Array #04", id: "AST-4021", temp: 61, health: 96, status: "Operational" },
-    { name: "Laser Cutter LC-08", id: "AST-0806", temp: 55, health: 91, status: "Operational" },
-    { name: "Palletizer PZ-11", id: "AST-1109", temp: 47, health: 85, status: "Warning" },
-  ],
-};
-
-const statusTone: Record<Asset["status"], string> = {
-  Operational: "text-green border-green/40 bg-green/10",
-  Warning: "text-amber border-amber/40 bg-amber/10",
-  Critical: "text-coral border-coral/40 bg-coral/10",
-  Maintenance: "text-cyan border-cyan/40 bg-cyan/10",
-};
-
-function barTone(health: number) {
-  if (health >= 85) return "bg-green";
-  if (health >= 60) return "bg-amber";
-  return "bg-coral";
-}
+import { useState, useMemo } from "react";
+import { Reveal, Section, SectionHeading } from "./primitives";
+import {
+  facilities,
+  FacilityId,
+  initialAssets,
+  initialNotifications,
+  AssetRecord,
+  LifecycleStage,
+  NotificationItem,
+} from "./dashboard/dashboardData";
+import { DashboardHeader } from "./dashboard/DashboardHeader";
+import { KpiCards } from "./dashboard/KpiCards";
+import { HealthChart } from "./dashboard/HealthChart";
+import { LifecycleFlow } from "./dashboard/LifecycleFlow";
+import { FilterBar, FilterState } from "./dashboard/FilterBar";
+import { AssetTable } from "./dashboard/AssetTable";
+import { AssetDetailDrawer } from "./dashboard/AssetDetailDrawer";
+import { MaintenancePanel } from "./dashboard/MaintenancePanel";
+import { AlertsPanel } from "./dashboard/AlertsPanel";
+import { AiAssistantModal } from "./dashboard/AiAssistantModal";
+import { NotificationsDrawer } from "./dashboard/NotificationsDrawer";
+import { QuickActions } from "./dashboard/QuickActions";
 
 export function Dashboard() {
-  const [tab, setTab] = useState<Tab>("Overview");
-  const [tick, setTick] = useState(0);
+  // Master Dashboard State
+  const [selectedFacility, setSelectedFacility] = useState<FacilityId>("colombo");
+  const [searchQuery, setSearchQuery] = useState("");
+  const [timeRange, setTimeRange] = useState<"24H" | "7D" | "30D" | "90D">("7D");
+  const [selectedStage, setSelectedStage] = useState<LifecycleStage>("Monitoring");
+  const [selectedAsset, setSelectedAsset] = useState<AssetRecord | null>(null);
 
-  useEffect(() => {
-    const t = setInterval(() => setTick((v) => (v + 1) % 7), 1800);
-    return () => clearInterval(t);
+  // Filters State
+  const [filters, setFilters] = useState<FilterState>({
+    type: "All",
+    health: "All",
+    lifecycle: "All",
+    maintenance: "All",
+    risk: "All",
+  });
+
+  // Modal / Drawer states
+  const [isNotificationsOpen, setIsNotificationsOpen] = useState(false);
+  const [isAiAssistantOpen, setIsAiAssistantOpen] = useState(false);
+  const [aiPrompt, setAiPrompt] = useState<string | undefined>(undefined);
+  const [notifications, setNotifications] = useState<NotificationItem[]>(initialNotifications);
+
+  // Asset Dataset filtered by Facility
+  const facilityAssets = useMemo(() => {
+    return initialAssets.filter(
+      (a) => a.facilityId === selectedFacility || selectedFacility === "colombo"
+    );
+  }, [selectedFacility]);
+
+  // Unique Asset Types for dropdown
+  const assetTypes = useMemo(() => {
+    return Array.from(new Set(initialAssets.map((a) => a.type)));
   }, []);
 
-  const assets = assetsByTab[tab];
+  // Filtered Assets based on search & all filter dropdowns
+  const filteredAssets = useMemo(() => {
+    return facilityAssets.filter((asset) => {
+      // Search
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase();
+        const match =
+          asset.name.toLowerCase().includes(q) ||
+          asset.id.toLowerCase().includes(q) ||
+          asset.type.toLowerCase().includes(q) ||
+          asset.location.toLowerCase().includes(q);
+        if (!match) return false;
+      }
+
+      // Type filter
+      if (filters.type !== "All" && asset.type !== filters.type) {
+        return false;
+      }
+
+      // Health filter
+      if (filters.health !== "All" && asset.healthStatus !== filters.health) {
+        return false;
+      }
+
+      // Lifecycle filter
+      if (filters.lifecycle !== "All" && asset.lifecycleStage !== filters.lifecycle) {
+        return false;
+      }
+
+      // Maintenance filter
+      if (filters.maintenance !== "All" && asset.maintenanceStatus !== filters.maintenance) {
+        return false;
+      }
+
+      // Risk filter
+      if (filters.risk !== "All" && asset.risk !== filters.risk) {
+        return false;
+      }
+
+      return true;
+    });
+  }, [facilityAssets, searchQuery, filters]);
+
+  // Cross-component handlers
+  const handleSelectAssetById = (assetId: string) => {
+    const found = initialAssets.find((a) => a.id === assetId);
+    if (found) {
+      setSelectedAsset(found);
+    }
+  };
+
+  const handleAskAiAboutAsset = (assetName: string) => {
+    setAiPrompt(`Provide deep telemetry breakdown and risk assessment for ${assetName}.`);
+    setIsAiAssistantOpen(true);
+  };
+
+  const handleAskAiAboutAlert = (alertDesc: string) => {
+    setAiPrompt(`Analyze root cause for anomaly: ${alertDesc}`);
+    setIsAiAssistantOpen(true);
+  };
+
+  const handleResetFilters = () => {
+    setFilters({
+      type: "All",
+      health: "All",
+      lifecycle: "All",
+      maintenance: "All",
+      risk: "All",
+    });
+    setSearchQuery("");
+  };
+
+  const handleMarkAsRead = (id: string) => {
+    setNotifications((prev) =>
+      prev.map((n) => (n.id === id ? { ...n, read: true } : n))
+    );
+  };
+
+  const handleMarkAllAsRead = () => {
+    setNotifications((prev) => prev.map((n) => ({ ...n, read: true })));
+  };
+
+  const unreadNotificationsCount = notifications.filter((n) => !n.read).length;
 
   return (
-    <Section id="dashboard">
+    <Section id="dashboard" className="relative py-16 md:py-24">
       <SectionHeading
-        eyebrow="Live Dashboard"
-        title="Your operations, rendered in real time"
-        subtitle="Unified telemetry, health scoring and predictive signals across every plant, line and node."
+        eyebrow="Interactive Operations Command Center"
+        title="Explore MatterLoop in Action."
+        subtitle="Simulate real-time telemetry, predictive health vectors, and asset lifecycle decisions across connected industrial facilities."
       />
 
-      <Reveal delay={0.1} className="mt-12">
-        <div className="glass overflow-hidden rounded-2xl">
-          <div className="flex items-center gap-2 overflow-x-auto border-b border-border px-3 py-3 sm:px-5">
-            {tabs.map((t) => (
-              <button
-                key={t}
-                onClick={() => setTab(t)}
-                className={`relative shrink-0 rounded-lg px-3.5 py-2 text-xs font-semibold transition-colors sm:text-sm ${
-                  tab === t ? "text-primary-foreground" : "text-muted-foreground hover:text-cyan"
-                }`}
-              >
-                {tab === t ? (
-                  <motion.span
-                    layoutId="dash-tab"
-                    className="absolute inset-0 rounded-lg bg-cyan"
-                    transition={{ type: "spring", stiffness: 380, damping: 32 }}
-                  />
-                ) : null}
-                <span className="relative">{t}</span>
-              </button>
-            ))}
-          </div>
+      {/* Main Dashboard Container */}
+      <Reveal delay={0.1} className="mt-10">
+        <div className="overflow-hidden rounded-3xl border border-border/80 bg-card/90 shadow-2xl backdrop-blur-2xl">
+          {/* 1. Dashboard Header */}
+          <DashboardHeader
+            selectedFacility={selectedFacility}
+            onFacilityChange={setSelectedFacility}
+            searchQuery={searchQuery}
+            onSearchChange={setSearchQuery}
+            timeRange={timeRange}
+            onTimeRangeChange={setTimeRange}
+            unreadNotificationsCount={unreadNotificationsCount}
+            onOpenNotifications={() => setIsNotificationsOpen(true)}
+            onOpenAiAssistant={() => {
+              setAiPrompt(undefined);
+              setIsAiAssistantOpen(true);
+            }}
+          />
 
-          <div className="grid gap-4 border-b border-border p-4 sm:grid-cols-2 sm:p-6 lg:grid-cols-4">
-            {metrics.map((m) => (
-              <div
-                key={m.label}
-                className="rounded-xl border border-border bg-surface/70 p-4 transition-colors hover:border-cyan/40"
-              >
-                <p className="font-mono text-[11px] uppercase tracking-[0.15em] text-muted-foreground">
-                  {m.label}
-                </p>
-                <p className={`mt-2 font-mono text-2xl font-bold ${m.tone}`}>{m.value}</p>
-                <p className={`mt-1 inline-flex items-center gap-1 text-[11px] ${m.tone}`}>
-                  <ArrowUpRight className="h-3 w-3" /> {m.delta}
-                </p>
+          {/* 2. Interactive KPI Cards */}
+          <KpiCards
+            facility={facilities[selectedFacility]}
+            assets={filteredAssets}
+            onSelectAsset={setSelectedAsset}
+            onFilterByHealth={(health) =>
+              setFilters((prev) => ({ ...prev, health: health as FilterState["health"] }))
+            }
+          />
+
+          {/* 3. Operational Body Grid */}
+          <div className="p-4 sm:p-6 space-y-6">
+            {/* Quick Actions Bar */}
+            <QuickActions
+              onOpenAiAssistant={() => {
+                setAiPrompt(undefined);
+                setIsAiAssistantOpen(true);
+              }}
+              onOpenAlertsView={() => {
+                const alertsEl = document.getElementById("dashboard-alerts-section");
+                alertsEl?.scrollIntoView({ behavior: "smooth" });
+              }}
+              onOpenMaintenanceView={() => {
+                const maintEl = document.getElementById("dashboard-maint-section");
+                maintEl?.scrollIntoView({ behavior: "smooth" });
+              }}
+            />
+
+            {/* 4. Asset Lifecycle Visualization */}
+            <LifecycleFlow
+              selectedStage={selectedStage}
+              onSelectStage={setSelectedStage}
+              onFilterByLifecycle={(stage) =>
+                setFilters((prev) => ({ ...prev, lifecycle: stage }))
+              }
+            />
+
+            {/* 5. Charts Grid */}
+            <div className="grid gap-6 lg:grid-cols-12">
+              <div className="lg:col-span-12">
+                <HealthChart
+                  timeRange={timeRange}
+                  onTimeRangeChange={setTimeRange}
+                />
               </div>
-            ))}
+            </div>
+
+            {/* 6. Filter Controls */}
+            <FilterBar
+              filters={filters}
+              onFilterChange={setFilters}
+              onResetFilters={handleResetFilters}
+              totalFiltered={filteredAssets.length}
+              totalAvailable={facilityAssets.length}
+              assetTypes={assetTypes}
+            />
+
+            {/* 7. Equipment Fleet Register Table */}
+            <AssetTable
+              assets={filteredAssets}
+              onSelectAsset={setSelectedAsset}
+            />
+
+            {/* 8. Intelligence & Operational Panels */}
+            <div className="grid gap-6 lg:grid-cols-2">
+              <div id="dashboard-maint-section">
+                <MaintenancePanel onSelectAssetById={handleSelectAssetById} />
+              </div>
+              <div id="dashboard-alerts-section">
+                <AlertsPanel
+                  onSelectAssetById={handleSelectAssetById}
+                  onAskAiAboutAlert={handleAskAiAboutAlert}
+                />
+              </div>
+            </div>
           </div>
-
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={tab}
-              initial={{ opacity: 0, y: 12 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -8 }}
-              transition={{ duration: 0.28 }}
-              className="grid gap-4 p-4 sm:p-6 lg:grid-cols-3"
-            >
-              {assets.map((a, i) => {
-                const temp = a.temp + ((tick + i) % 3) - 1;
-                return (
-                  <div
-                    key={a.id}
-                    className="group rounded-xl border border-border bg-surface/70 p-4 transition-all hover:border-cyan/50 hover:bg-surface"
-                  >
-                    <div className="grid grid-cols-[minmax(0,1fr)_auto] items-start gap-3">
-                      <div className="min-w-0">
-                        <p className="truncate text-sm font-semibold">{a.name}</p>
-                        <p className="mt-0.5 font-mono text-[11px] text-muted-foreground">{a.id}</p>
-                      </div>
-                      <span
-                        className={`shrink-0 rounded-full border px-2 py-0.5 font-mono text-[10px] uppercase ${statusTone[a.status]}`}
-                      >
-                        {a.status}
-                      </span>
-                    </div>
-
-                    <div className="mt-4 flex items-center gap-2 font-mono text-xs text-muted-foreground">
-                      <Thermometer className="h-3.5 w-3.5 text-amber" />
-                      <span className="text-foreground">{temp}°C</span>
-                      <span className="ml-auto flex items-center gap-1">
-                        <Activity className="h-3.5 w-3.5 text-cyan" /> {a.health}% health
-                      </span>
-                    </div>
-
-                    <div className="mt-2 h-1.5 w-full overflow-hidden rounded-full bg-surface-2">
-                      <motion.div
-                        initial={{ width: 0 }}
-                        animate={{ width: `${a.health}%` }}
-                        transition={{ duration: 0.7, ease: "easeOut" }}
-                        className={`h-full rounded-full ${barTone(a.health)}`}
-                      />
-                    </div>
-
-                    <div className="mt-4 flex items-center gap-2 font-mono text-[11px] text-muted-foreground">
-                      {a.status === "Critical" ? (
-                        <AlertTriangle className="h-3.5 w-3.5 text-coral" />
-                      ) : (
-                        <Gauge className="h-3.5 w-3.5 text-green" />
-                      )}
-                      {a.status === "Critical"
-                        ? "failure probability 0.82 / 72h"
-                        : "next service window in 14d"}
-                    </div>
-                  </div>
-                );
-              })}
-            </motion.div>
-          </AnimatePresence>
         </div>
       </Reveal>
+
+      {/* Slide-over Asset Detail Drawer */}
+      <AssetDetailDrawer
+        asset={selectedAsset}
+        onClose={() => setSelectedAsset(null)}
+        onAskAiAboutAsset={handleAskAiAboutAsset}
+        onViewLifecycleStage={(stage) => {
+          setSelectedStage(stage);
+          setFilters((prev) => ({ ...prev, lifecycle: stage }));
+        }}
+      />
+
+      {/* AI Assistant Chatbot Modal */}
+      <AiAssistantModal
+        isOpen={isAiAssistantOpen}
+        onClose={() => setIsAiAssistantOpen(false)}
+        onSelectAssetById={handleSelectAssetById}
+        onOpenMaintenance={() => {
+          const el = document.getElementById("dashboard-maint-section");
+          el?.scrollIntoView({ behavior: "smooth" });
+        }}
+        onFilterRiskCritical={() => {
+          setFilters((prev) => ({ ...prev, risk: "Critical" }));
+        }}
+        initialPrompt={aiPrompt}
+      />
+
+      {/* Notifications Drawer */}
+      <NotificationsDrawer
+        isOpen={isNotificationsOpen}
+        onClose={() => setIsNotificationsOpen(false)}
+        notifications={notifications}
+        onMarkAsRead={handleMarkAsRead}
+        onMarkAllAsRead={handleMarkAllAsRead}
+        onSelectAssetById={handleSelectAssetById}
+      />
     </Section>
   );
 }
