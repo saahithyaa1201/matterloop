@@ -17,11 +17,11 @@ export function Nav() {
   return (
     <header className="sticky top-0 z-50 border-b border-border/80 bg-background/80 backdrop-blur-xl">
       <div className="mx-auto grid max-w-7xl grid-cols-[minmax(0,1fr)_auto] items-center gap-4 px-5 py-3.5 sm:px-8 lg:grid-cols-[auto_1fr_auto]">
-        <a href="#top" className="flex min-w-0 items-center">
+        <a href="#top" className="flex shrink-0 items-center">
           <img
             src="/logo.png"
             alt="MatterLoop logo"
-            className="h-10 w-auto object-contain sm:h-12"
+            className="h-10 w-auto max-w-[200px] shrink-0 object-contain sm:h-12"
           />
         </a>
 

@@ -1,24 +1,7 @@
-import { useEffect, useState } from "react";
 import { ArrowRight } from "lucide-react";
 import { Eyebrow, Reveal } from "./primitives";
 
-const COOKIE_KEY = "matterloop_cookie_consent";
-
 export function Hero() {
-  const [accepted, setAccepted] = useState(false);
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem(COOKIE_KEY);
-    if (saved === "accepted") {
-      setAccepted(true);
-    }
-  }, []);
-
-  const handleAccept = () => {
-    window.localStorage.setItem(COOKIE_KEY, "accepted");
-    setAccepted(true);
-  };
-
   return (
     <section id="top" className="relative overflow-hidden py-16 md:py-28">
       <div
@@ -92,29 +75,6 @@ export function Hero() {
               <span className="text-xs font-semibold uppercase tracking-wider text-muted-foreground">Supply Chain Data</span>
             </div>
           </div>
-
-          {!accepted && (
-            <div className="pointer-events-auto fixed inset-x-0 bottom-5 z-50 flex justify-center px-4">
-              <div className="w-full max-w-xl rounded-2xl border border-border/80 bg-surface/95 p-5 shadow-[0_20px_60px_rgba(0,0,0,0.35)] backdrop-blur-xl">
-                <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-                  <div className="space-y-2 text-left">
-                    <p className="text-base font-semibold text-foreground">We use cookies</p>
-                    <p className="text-sm leading-relaxed text-muted-foreground">
-                      We use cookies to improve performance, understand usage, and provide a better experience.
-                    </p>
-                  </div>
-
-                  <button
-                    type="button"
-                    onClick={handleAccept}
-                    className="inline-flex items-center justify-center rounded-lg bg-cyan px-4 py-2.5 text-sm font-semibold text-primary-foreground transition-all hover:brightness-110"
-                  >
-                    Accept
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
         </Reveal>
       </div>
     </section>

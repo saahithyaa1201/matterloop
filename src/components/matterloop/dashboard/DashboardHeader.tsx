@@ -137,7 +137,7 @@ export function DashboardHeader({
         </div>
 
         {/* Right: Date range, AI button, Notifications, Profile */}
-        <div className="flex items-center gap-2.5 self-end lg:self-auto">
+        <div className="flex flex-wrap items-center justify-end gap-2.5 self-end lg:self-auto">
           {/* Time range selector */}
           <div className="flex items-center rounded-xl border border-border/80 bg-surface/50 p-0.5 text-xs font-mono">
             <Clock className="ml-2 mr-1 h-3 w-3 text-muted-foreground hidden sm:inline-block" />

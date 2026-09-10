@@ -8,6 +8,8 @@ import {
 import { useEffect } from "react";
 
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { CookieConsent } from "../components/cookie-consent/CookieConsent";
+import { useCookieConsent } from "../components/cookie-consent/useCookieConsent";
 
 function NotFoundComponent() {
   return (
@@ -77,8 +79,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
 
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const { consent, isMounted } = useCookieConsent();
 
   useEffect(() => {
+    if (!isMounted) return;
+
+    // Only load Tawk.to live chat if marketing/analytics consent is given
+    if (!consent.analytics && !consent.marketing) {
+      const existingScript = document.getElementById("tawk-script");
+      if (existingScript) existingScript.remove();
+      return;
+    }
+
     const existingScript = document.getElementById("tawk-script");
     if (existingScript) return;
 
@@ -98,12 +110,13 @@ function RootComponent() {
     script.setAttribute("crossorigin", "*");
     script.src = "https://embed.tawk.to/6a951acdadddbc344758534f/1k1b71dff";
     document.head.appendChild(script);
-  }, []);
+  }, [consent.analytics, consent.marketing, isMounted]);
 
   return (
     <QueryClientProvider client={queryClient}>
       {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
       <Outlet />
+      <CookieConsent />
     </QueryClientProvider>
   );
 }

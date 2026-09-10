@@ -9,7 +9,7 @@ const groups = [
 export function Footer() {
   return (
     <footer className="border-t border-border bg-surface/40">
-      <div className="mx-auto max-w-7xl px-5 py-14 sm:px-8">
+      <div className="mx-auto max-w-7xl px-5 py-14 pb-24 sm:pb-14 sm:px-8">
         <div className="grid gap-10 lg:grid-cols-[1.4fr_2fr]">
           <div>
             <div className="flex items-center">
@@ -68,6 +68,12 @@ export function Footer() {
             >
               Terms
             </Link>
+            <button
+              onClick={() => window.dispatchEvent(new CustomEvent("open-cookie-preferences"))}
+              className="text-xs text-muted-foreground transition-colors hover:text-cyan cursor-pointer bg-transparent border-none p-0 m-0"
+            >
+              Cookie Preferences
+            </button>
             <a
               href="#top"
               className="text-xs text-muted-foreground transition-colors hover:text-cyan"

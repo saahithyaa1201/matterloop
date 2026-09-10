@@ -46,7 +46,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
         </div>
 
         {/* Status filter tabs */}
-        <div className="flex items-center rounded-lg border border-border/70 bg-surface/50 p-0.5 font-mono text-[10px]">
+        <div className="flex flex-wrap items-center rounded-lg border border-border/70 bg-surface/50 p-0.5 font-mono text-[10px]">
           {(["All", "Overdue", "Due", "Scheduled"] as const).map((tab) => (
             <button
               key={tab}
@@ -186,7 +186,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
               </div>
             </div>
 
-            <div className="mt-6 flex items-center justify-between pt-4 border-t border-border/60">
+            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-border/60">
               <button
                 type="button"
                 onClick={() => {

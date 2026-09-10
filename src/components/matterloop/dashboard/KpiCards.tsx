@@ -113,7 +113,7 @@ export function KpiCards({
 
   return (
     <>
-      <div className="grid grid-cols-2 gap-3 p-4 sm:gap-4 sm:p-6 lg:grid-cols-6 border-b border-border/80 bg-surface/30">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 p-4 sm:gap-4 sm:p-6 border-b border-border/80 bg-surface/30">
         {kpis.map((kpi) => {
           const Icon = kpi.icon;
           return (

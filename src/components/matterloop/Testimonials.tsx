@@ -96,7 +96,7 @@ export function Testimonials() {
         >
           {marqueeItems.map((t, i) => (
             <Reveal key={`${t.name}-${i}`} delay={i * 0.02}>
-              <div className="flex h-full w-[340px] shrink-0 flex-col rounded-[26px] border border-border/80 bg-surface/70 p-6 shadow-[0_12px_30px_rgba(117,85,60,0.04)] transition-all hover:border-[#75553c]/60 hover:shadow-[0_16px_34px_rgba(117,85,60,0.08)]">
+              <div className="flex h-full w-[280px] sm:w-[340px] shrink-0 flex-col rounded-[26px] border border-border/80 bg-surface/70 p-6 shadow-[0_12px_30px_rgba(117,85,60,0.04)] transition-all hover:border-[#75553c]/60 hover:shadow-[0_16px_34px_rgba(117,85,60,0.08)]">
                 <Quote className="h-5 w-5 text-[#75553c]" />
                 <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90">"{t.quote}"</p>
                 <span
