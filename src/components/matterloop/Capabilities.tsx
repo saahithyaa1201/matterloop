@@ -1,4 +1,4 @@
-import { Reveal, Section, SectionHeading } from "./primitives";
+import { Reveal, SectionHeading } from "./primitives";
 
 const caps = [
   {
@@ -35,12 +35,17 @@ const frameworks = ["NVIDIA Metropolis", "RAPIDS", "Omniverse"];
 
 export function Capabilities() {
   return (
-    <Section id="capabilities">
-      <SectionHeading
-        eyebrow="Capabilities"
-        title="Four engines. One lifecycle model."
-        subtitle="Every module writes into a shared asset graph, so insight compounds instead of fragmenting."
+    <section id="capabilities" className="relative w-full overflow-hidden py-20 md:py-28">
+      <div
+        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
+        style={{ backgroundImage: "url('/Capabilities.svg')" }}
       />
+      <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
+        <SectionHeading
+          eyebrow="Capabilities"
+          title="Four engines. One lifecycle model."
+          subtitle="Every module writes into a shared asset graph, so insight compounds instead of fragmenting."
+        />
 
       <div className="mt-12 grid gap-5 md:grid-cols-2">
         {caps.map((c, i) => (
@@ -89,6 +94,7 @@ export function Capabilities() {
           </div>
         </div>
       </Reveal>
-    </Section>
+      </div>
+    </section>
   );
 }
