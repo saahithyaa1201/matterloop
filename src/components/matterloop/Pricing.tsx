@@ -167,9 +167,9 @@ export function Pricing() {
 
       {/* Billing Switcher */}
       <Reveal delay={0.05} className="mt-8 flex justify-center">
-        <div className="inline-flex items-center gap-3 rounded-full border border-border/80 bg-card/90 px-4 py-2 shadow-sm backdrop-blur-md">
+        <div className="inline-flex items-center gap-2 sm:gap-3 rounded-full border border-border/80 bg-card/90 px-3 sm:px-4 py-1.5 sm:py-2 shadow-sm backdrop-blur-md max-w-full">
           <span
-            className={`text-sm font-semibold transition-colors cursor-pointer ${
+            className={`text-xs sm:text-sm font-semibold transition-colors cursor-pointer ${
               annual ? "text-muted-foreground" : "text-foreground"
             }`}
             onClick={() => setAnnual(false)}
@@ -181,7 +181,7 @@ export function Pricing() {
             aria-checked={annual}
             aria-label="Toggle annual billing"
             onClick={() => setAnnual((v) => !v)}
-            className={`relative h-7 w-13 shrink-0 cursor-pointer rounded-full border transition-all duration-300 ${
+            className={`relative h-6 w-11 sm:h-7 sm:w-13 shrink-0 cursor-pointer rounded-full border transition-all duration-300 ${
               annual
                 ? "border-cyan bg-cyan/25 shadow-[0_0_12px_rgba(102,110,82,0.35)]"
                 : "border-border bg-surface/60"
@@ -190,20 +190,20 @@ export function Pricing() {
             <motion.span
               layout
               transition={{ type: "spring", stiffness: 500, damping: 32 }}
-              className={`block h-5 w-5 rounded-full shadow-sm ${
-                annual ? "ml-7 bg-cyan" : "ml-1 bg-muted-foreground/80"
+              className={`block h-4 w-4 sm:h-5 sm:w-5 rounded-full shadow-sm ${
+                annual ? "ml-6 sm:ml-7 bg-cyan" : "ml-1 bg-muted-foreground/80"
               }`}
             />
           </button>
           <span
-            className={`text-sm font-semibold transition-colors cursor-pointer ${
+            className={`text-xs sm:text-sm font-semibold transition-colors cursor-pointer ${
               annual ? "text-foreground" : "text-muted-foreground"
             }`}
             onClick={() => setAnnual(true)}
           >
             Annual
           </span>
-          <span className="flex items-center gap-1 rounded-full border border-green/40 bg-green/15 px-2.5 py-0.5 font-mono text-[11px] font-bold text-green shadow-xs">
+          <span className="flex items-center gap-1 rounded-full border border-green/40 bg-green/15 px-2 sm:px-2.5 py-0.5 font-mono text-[10px] sm:text-[11px] font-bold text-green shadow-xs">
             <span className="h-1.5 w-1.5 rounded-full bg-green animate-pulse" />
             20% off
           </span>
@@ -221,7 +221,7 @@ export function Pricing() {
           return (
             <Reveal key={t.name} delay={i * 0.08} className="h-full">
               <div
-                className={`relative flex h-full flex-col rounded-3xl p-7 transition-all duration-300 ${
+                className={`relative flex h-full flex-col rounded-3xl p-5 sm:p-7 transition-all duration-300 ${
                   t.popular
                     ? "border-2 border-cyan bg-card/95 shadow-xl shadow-cyan/10 ring-4 ring-cyan/10 lg:-translate-y-2 hover:shadow-2xl"
                     : "border border-border/80 bg-card/75 shadow-sm backdrop-blur-md hover:border-cyan/40 hover:shadow-lg hover:-translate-y-1"

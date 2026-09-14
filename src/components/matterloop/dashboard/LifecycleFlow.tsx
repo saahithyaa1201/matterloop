@@ -42,7 +42,7 @@ export function LifecycleFlow({
   const currentMeta = lifecycleStageMeta[selectedStage];
 
   return (
-    <div className="rounded-2xl border border-border/80 bg-card/70 p-4 sm:p-6 shadow-xs backdrop-blur-md">
+    <div className="rounded-2xl border border-border/80 bg-card/70 p-3.5 sm:p-6 shadow-xs backdrop-blur-md">
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between border-b border-border/60 pb-4">
         <div>
           <div className="flex items-center gap-2">
@@ -80,7 +80,7 @@ export function LifecycleFlow({
               key={stage}
               type="button"
               onClick={() => onSelectStage(stage)}
-              className={`group relative flex flex-col justify-between rounded-xl border p-3.5 text-left transition-all duration-200 cursor-pointer ${
+              className={`group relative flex flex-col justify-between rounded-xl border p-2.5 sm:p-3.5 text-left transition-all duration-200 cursor-pointer ${
                 isSelected
                   ? "border-cyan bg-cyan/15 shadow-md shadow-cyan/10 ring-1 ring-cyan"
                   : "border-border/70 bg-surface/40 hover:border-cyan/40 hover:bg-surface/70"

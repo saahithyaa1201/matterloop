@@ -105,31 +105,31 @@ function ProductPage() {
       <Nav />
       <main>
         {/* HERO */}
-        <section className="grid-texture relative px-5 pt-32 pb-24 sm:px-8 text-center hero-glow">
-          <div className="mx-auto max-w-4xl relative z-10">
-            <div className="mb-8 flex justify-center">
+        <section className="relative px-4 pt-28 pb-20 text-center grid-texture sm:px-8 sm:pt-32 sm:pb-24 hero-glow">
+          <div className="relative z-10 max-w-4xl mx-auto">
+            <div className="flex justify-center mb-6 sm:mb-8">
               <Eyebrow>Physical asset lifecycle intelligence</Eyebrow>
             </div>
             
-            <h1 className="text-4xl font-bold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-[74px] leading-tight mb-7">
-              <span className="text-primary block">Intelligence across</span>
-              <span className="text-accent block">the life of every asset.</span>
+            <h1 className="text-3xl font-bold tracking-tight text-balance sm:text-5xl md:text-6xl lg:text-[74px] leading-tight mb-6 sm:mb-7 break-words">
+              <span className="block text-primary">Intelligence across</span>
+              <span className="block text-accent">the life of every asset.</span>
             </h1>
             
-            <p className="mx-auto max-w-2xl text-lg text-muted-foreground leading-relaxed mb-10">
+            <p className="max-w-2xl mx-auto mb-8 sm:mb-10 text-sm sm:text-lg leading-relaxed text-muted-foreground">
               Turn physical machinery, telemetry, maintenance history and supply chain data into one unified layer of lifecycle intelligence.
             </p>
             
-            <div className="flex flex-wrap justify-center gap-4 mb-12">
-              <button className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-[15px] font-semibold text-primary-foreground transition-all hover:brightness-110">
-                Explore dashboard <ArrowRight className="h-4 w-4" />
-              </button>
-              <button className="inline-flex items-center justify-center rounded-full border border-border bg-transparent px-6 py-3.5 text-[15px] font-semibold text-accent transition-colors hover:bg-surface/50">
+            <div className="flex flex-col sm:flex-row justify-center gap-3 sm:gap-4 mb-10 sm:mb-12">
+              <a href="https://portal.matterloop.net" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center gap-2 rounded-full bg-primary px-6 py-3.5 text-[15px] font-semibold text-primary-foreground transition-all hover:brightness-110">
+                Explore dashboard <ArrowRight className="w-4 h-4" />
+              </a>
+              <a href="#architecture" className="inline-flex items-center justify-center rounded-full border border-border bg-transparent px-6 py-3.5 text-[15px] font-semibold text-accent transition-colors hover:bg-surface/50">
                 View platform architecture
-              </button>
+              </a>
             </div>
             
-            <div className="mx-auto flex max-w-2xl flex-wrap justify-center gap-0 rounded-full border border-border bg-card p-1.5 shadow-sm">
+            <div className="mx-auto flex max-w-2xl flex-col sm:flex-row justify-center gap-0 rounded-2xl sm:rounded-full border border-border bg-card p-1.5 shadow-sm">
               {[
                 { icon: Activity, label: "Real-time telemetry" },
                 { icon: ShieldCheck, label: "Predictive maintenance" },
@@ -138,10 +138,10 @@ function ProductPage() {
                 <div
                   key={label}
                   className={`flex flex-1 items-center justify-center gap-2 px-4 py-2.5 text-sm font-medium text-muted-foreground ${
-                    i !== 0 ? "border-l border-border" : ""
+                    i !== 0 ? "border-t sm:border-t-0 sm:border-l border-border" : ""
                   }`}
                 >
-                  <Icon className="h-4 w-4 text-primary" />
+                  <Icon className="w-4 h-4 text-primary shrink-0" />
                   {label}
                 </div>
               ))}
@@ -158,8 +158,8 @@ function ProductPage() {
 
           <div className="mx-auto mt-12 grid max-w-5xl grid-cols-1 gap-[1px] overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
             {challenges.map(({ icon: Icon, title, body }) => (
-              <div key={title} className="bg-card p-8 sm:p-10 transition-colors hover:bg-surface/20">
-                <Icon className="h-6 w-6 text-accent mb-4" strokeWidth={1.5} />
+              <div key={title} className="p-8 transition-colors bg-card sm:p-10 hover:bg-surface/20">
+                <Icon className="w-6 h-6 mb-4 text-accent" strokeWidth={1.5} />
                 <h3 className="mb-3 text-xl font-bold tracking-tight text-foreground">
                   {title}
                 </h3>
@@ -172,13 +172,13 @@ function ProductPage() {
         </Section>
 
         {/* ARCHITECTURE LAYERS */}
-        <Section>
+        <Section id="architecture">
           <SectionHeading
             eyebrow="Platform architecture"
             title="Five layers, one continuous asset record."
           />
 
-          <div className="mx-auto mt-12 max-w-4xl space-y-0">
+          <div className="max-w-4xl mx-auto mt-12 space-y-0">
             {layers.map((layer, i) => (
               <div
                 key={layer.name}
@@ -186,11 +186,11 @@ function ProductPage() {
                   i === 0 ? "" : "border-t border-border"
                 }`}
               >
-                <div className="text-sm font-bold text-accent shrink-0 pt-1">
+                <div className="pt-1 text-sm font-bold text-accent shrink-0">
                   {String(i + 1).padStart(2, "0")}
                 </div>
                 <div>
-                  <div className="mb-3 flex flex-wrap items-center gap-3">
+                  <div className="flex flex-wrap items-center gap-3 mb-3">
                     <h3 className="text-xl font-bold tracking-tight text-foreground">
                       {layer.name}
                     </h3>
@@ -214,7 +214,7 @@ function ProductPage() {
             title="Built on the NVIDIA accelerated computing stack."
           />
 
-          <div className="mx-auto mt-12 max-w-5xl overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
+          <div className="max-w-5xl mx-auto mt-12 overflow-hidden border shadow-sm rounded-2xl border-border bg-card">
             {/* Desktop Header */}
             <div className="hidden md:grid grid-cols-[160px_1fr_2fr] bg-primary text-primary-foreground px-6 py-3.5 text-xs font-semibold uppercase tracking-wider">
               <span>Technology</span>
@@ -227,7 +227,7 @@ function ProductPage() {
               {matrix.map((row, i) => (
                 <div
                   key={row[0]}
-                  className={`flex flex-col md:grid md:grid-cols-[160px_1fr_2fr] gap-2 md:gap-4 p-5 sm:px-6 sm:py-4 ${
+                  className={`flex flex-col md:grid md:grid-cols-[160px_1fr_2fr] gap-2 md:gap-4 p-4 sm:px-6 sm:py-4 ${
                     i % 2 === 0 ? "bg-card" : "bg-surface/20"
                   }`}
                 >
@@ -236,21 +236,21 @@ function ProductPage() {
                   </span>
                   
                   {/* Mobile labels */}
-                  <div className="md:hidden flex flex-col gap-1 mt-1">
+                  <div className="flex flex-col gap-1 mt-1 md:hidden">
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">Function</span>
-                    <span className="text-sm text-foreground font-medium">{row[1]}</span>
+                    <span className="text-sm font-medium text-foreground">{row[1]}</span>
                   </div>
                   
-                  <div className="md:hidden flex flex-col gap-1 mt-2">
+                  <div className="flex flex-col gap-1 mt-2 md:hidden">
                     <span className="text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">MatterLoop integration</span>
-                    <span className="text-sm text-muted-foreground leading-relaxed">{row[2]}</span>
+                    <span className="text-sm leading-relaxed text-muted-foreground">{row[2]}</span>
                   </div>
 
                   {/* Desktop Content */}
-                  <span className="hidden md:block text-sm font-medium text-foreground self-center">
+                  <span className="self-center hidden text-sm font-medium md:block text-foreground">
                     {row[1]}
                   </span>
-                  <span className="hidden md:block text-sm text-muted-foreground leading-relaxed self-center">
+                  <span className="self-center hidden text-sm leading-relaxed md:block text-muted-foreground">
                     {row[2]}
                   </span>
                 </div>
@@ -266,7 +266,7 @@ function ProductPage() {
             title="Local intelligence, refined centrally."
           />
 
-          <div className="mx-auto mt-12 flex max-w-3xl flex-col items-center">
+          <div className="flex flex-col items-center max-w-3xl mx-auto mt-12">
             {[
               {
                 icon: Radio,
@@ -294,7 +294,7 @@ function ProductPage() {
                     i === 1 ? "bg-primary text-primary-foreground glow-border" : "bg-card text-foreground"
                   }`}
                 >
-                  <div className="mb-4 flex items-center gap-3">
+                  <div className="flex items-center gap-3 mb-4">
                     <block.icon
                       className={`h-5 w-5 ${i === 1 ? "text-primary-foreground" : "text-accent"}`}
                     />
@@ -320,7 +320,7 @@ function ProductPage() {
                 
                 {i !== arr.length - 1 && (
                   <ArrowDown
-                    className="my-3 h-6 w-6 text-muted-foreground animate-pulse"
+                    className="w-6 h-6 my-3 text-muted-foreground animate-pulse"
                   />
                 )}
               </React.Fragment>
@@ -335,7 +335,7 @@ function ProductPage() {
             title="What ships next."
           />
 
-          <div className="mx-auto mt-12 max-w-4xl space-y-0">
+          <div className="max-w-4xl mx-auto mt-12 space-y-0">
             {roadmap.map((r, i) => (
               <div
                 key={r[1]}
@@ -360,10 +360,10 @@ function ProductPage() {
         </Section>
 
         {/* CTA */}
-        <Section className="text-center pb-20 md:pb-28">
-          <div className="mx-auto max-w-2xl">
-            <div className="mb-6 flex justify-center">
-              <div className="rounded-2xl bg-primary/10 p-4">
+        <Section className="pb-20 text-center md:pb-28">
+          <div className="max-w-2xl mx-auto">
+            <div className="flex justify-center mb-6">
+              <div className="p-4 rounded-2xl bg-primary/10">
                 <MessageSquare className="h-7 w-7 text-primary" />
               </div>
             </div>
@@ -379,12 +379,9 @@ function ProductPage() {
             </p>
             
             <div className="flex flex-wrap justify-center gap-4">
-              <button className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3.5 text-[15px] font-semibold text-primary-foreground transition-all hover:brightness-110">
+              <a href="/#contact" className="inline-flex items-center justify-center rounded-full bg-primary px-7 py-3.5 text-[15px] font-semibold text-primary-foreground transition-all hover:brightness-110">
                 Book a demo
-              </button>
-              <button className="inline-flex items-center justify-center rounded-full border border-border bg-card px-7 py-3.5 text-[15px] font-semibold text-foreground transition-colors hover:bg-surface/50">
-                Request SSO access
-              </button>
+              </a>
             </div>
           </div>
         </Section>

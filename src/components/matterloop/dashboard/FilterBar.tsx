@@ -34,11 +34,11 @@ export function FilterBar({
     filters.risk !== "All";
 
   return (
-    <div className="rounded-2xl border border-border/80 bg-card/60 p-4 shadow-xs backdrop-blur-md">
+    <div className="rounded-2xl border border-border/80 bg-card/60 p-3.5 sm:p-4 shadow-xs backdrop-blur-md">
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center lg:justify-between">
         {/* Title / Active filter indicator */}
         <div className="flex items-center gap-2.5">
-          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-cyan/40 bg-cyan/15 text-cyan">
+          <div className="flex h-7 w-7 items-center justify-center rounded-lg border border-cyan/40 bg-cyan/15 text-cyan shrink-0">
             <Filter className="h-3.5 w-3.5" />
           </div>
           <div>
@@ -57,7 +57,7 @@ export function FilterBar({
           <select
             value={filters.type}
             onChange={(e) => onFilterChange({ ...filters, type: e.target.value })}
-            className="rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
+            className="w-full min-[440px]:w-auto min-w-0 max-w-full rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
           >
             <option value="All">All Asset Types</option>
             {assetTypes.map((t) => (
@@ -73,7 +73,7 @@ export function FilterBar({
             onChange={(e) =>
               onFilterChange({ ...filters, health: e.target.value as HealthStatus | "All" })
             }
-            className="rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
+            className="w-full min-[440px]:w-auto min-w-0 max-w-full rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
           >
             <option value="All">All Health States</option>
             <option value="Healthy">Healthy (≥ 80%)</option>
@@ -90,7 +90,7 @@ export function FilterBar({
                 lifecycle: e.target.value as LifecycleStage | "All",
               })
             }
-            className="rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
+            className="w-full min-[440px]:w-auto min-w-0 max-w-full rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
           >
             <option value="All">All Lifecycle Stages</option>
             <option value="Deployment">Deployment</option>
@@ -110,7 +110,7 @@ export function FilterBar({
                 maintenance: e.target.value as MaintenanceStatus | "All",
               })
             }
-            className="rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
+            className="w-full min-[440px]:w-auto min-w-0 max-w-full rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
           >
             <option value="All">All Maintenance</option>
             <option value="Nominal">Nominal</option>
@@ -125,7 +125,7 @@ export function FilterBar({
             onChange={(e) =>
               onFilterChange({ ...filters, risk: e.target.value as RiskLevel | "All" })
             }
-            className="rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
+            className="w-full min-[440px]:w-auto min-w-0 max-w-full rounded-xl border border-border/80 bg-surface/60 px-2.5 py-1.5 text-xs text-foreground focus:border-cyan focus:outline-hidden"
           >
             <option value="All">All Risk Levels</option>
             <option value="Low">Low Risk</option>

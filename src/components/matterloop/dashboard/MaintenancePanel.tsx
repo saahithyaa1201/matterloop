@@ -30,7 +30,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
   });
 
   return (
-    <div className="rounded-2xl border border-border/80 bg-card/70 p-4 sm:p-6 shadow-xs backdrop-blur-md">
+    <div className="rounded-2xl border border-border/80 bg-card/70 p-3.5 sm:p-6 shadow-xs backdrop-blur-md">
       {/* Header */}
       <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/60 pb-4">
         <div>
@@ -109,7 +109,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-border/50 flex items-center justify-between">
+            <div className="mt-4 pt-3 border-t border-border/50 flex flex-wrap items-center justify-between gap-2">
               <button
                 type="button"
                 onClick={() => onSelectAssetById(rec.assetId)}

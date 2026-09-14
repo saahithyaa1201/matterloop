@@ -103,10 +103,11 @@ export function Contact() {
     const renderWidget = () => {
       if (!turnstileContainerRef.current || !window.turnstile || widgetIdRef.current) return;
       try {
+        const isSmallMobile = typeof window !== "undefined" && window.innerWidth < 360;
         const widgetId = window.turnstile.render(turnstileContainerRef.current, {
           sitekey: TURNSTILE_SITE_KEY,
           theme: "dark",
-          size: "flexible",
+          size: isSmallMobile ? "compact" : "flexible",
           callback: (token: string) => {
             if (isMounted) {
               setTurnstileToken(token);
@@ -308,22 +309,24 @@ export function Contact() {
 
       {/* Industrial Intelligence Visual Flow */}
       <Reveal delay={0.08} className="mt-10">
-        <div className="overflow-hidden rounded-2xl border border-border/80 bg-card/60 p-5 shadow-xs backdrop-blur-xl sm:p-6">
+        <div className="overflow-hidden rounded-2xl border border-border/80 bg-card/60 p-4 shadow-xs backdrop-blur-xl sm:p-6">
           <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between border-b border-border/50 pb-5">
-            <div className="flex items-center gap-2.5">
-              <span className="flex h-2.5 w-2.5 rounded-full bg-cyan">
-                <span className="h-full w-full rounded-full bg-cyan animate-ping opacity-75" />
-              </span>
-              <span className="font-mono text-xs font-semibold tracking-wider uppercase text-foreground">
-                MatterLoop Intelligence Flow
-              </span>
-              <span className="rounded-md border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-mono text-[10px] text-cyan">
+            <div className="flex flex-wrap items-center gap-2">
+              <div className="flex items-center gap-2">
+                <span className="flex h-2.5 w-2.5 rounded-full bg-cyan shrink-0">
+                  <span className="h-full w-full rounded-full bg-cyan animate-ping opacity-75" />
+                </span>
+                <span className="font-mono text-xs font-semibold tracking-wider uppercase text-foreground">
+                  MatterLoop Intelligence Flow
+                </span>
+              </div>
+              <span className="rounded-md border border-cyan/40 bg-cyan/10 px-2 py-0.5 font-mono text-[10px] text-cyan shrink-0">
                 ACTIVE PIPELINE
               </span>
             </div>
 
             {/* Asset Node Chips */}
-            <div className="flex flex-wrap items-center gap-2">
+            <div className="flex flex-wrap items-center gap-1.5 sm:gap-2">
               <span className="font-mono text-[11px] text-muted-foreground mr-1 hidden sm:inline-block">
                 Monitored Nodes:
               </span>
@@ -334,7 +337,7 @@ export function Contact() {
                     key={node.label}
                     className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-surface/50 px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors hover:border-cyan/50 hover:text-foreground"
                   >
-                    <Icon className="h-3 w-3 text-cyan" />
+                    <Icon className="h-3 w-3 text-cyan shrink-0" />
                     {node.label}
                   </span>
                 );
@@ -343,7 +346,7 @@ export function Contact() {
           </div>
 
           {/* Flow Steps Pipeline */}
-          <div className="mt-5 grid grid-cols-2 gap-3 sm:grid-cols-4 lg:gap-4">
+          <div className="mt-5 grid grid-cols-1 min-[380px]:grid-cols-2 gap-2.5 sm:grid-cols-4 sm:gap-3 lg:gap-4">
             {flowSteps.map((s, idx) => (
               <div
                 key={s.name}
@@ -390,9 +393,9 @@ export function Contact() {
             </div>
 
             {/* Direct Email Card */}
-            <div className="rounded-2xl border border-border/80 bg-card/75 p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
-              <div className="flex items-start gap-4">
-                <div className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl border border-cyan/40 bg-cyan/10 text-cyan">
+            <div className="rounded-2xl border border-border/80 bg-card/75 p-4 sm:p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
+              <div className="flex items-start gap-3.5 sm:gap-4">
+                <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl border border-cyan/40 bg-cyan/10 text-cyan">
                   <Mail className="h-5 w-5" />
                 </div>
                 <div className="min-w-0 flex-1">
@@ -418,7 +421,7 @@ export function Contact() {
             {/* Dual Global Offices */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
               {/* Sri Lanka Office */}
-              <div className="rounded-2xl border border-border/80 bg-card/75 p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
+              <div className="rounded-2xl border border-border/80 bg-card/75 p-4 sm:p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
                 <div className="flex items-start gap-3.5">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-surface/50 text-cyan">
                     <MapPin className="h-4 w-4" />
@@ -430,12 +433,12 @@ export function Contact() {
                     <h4 className="text-sm font-bold text-foreground">
                       Sri Lanka Office
                     </h4>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground break-words">
                       No. 10 Deasonton Place<br />
                       Colombo 00300, Sri Lanka
                     </p>
                     <div className="mt-3 flex items-center gap-2 pt-2 border-t border-border/40">
-                      <Phone className="h-3.5 w-3.5 text-muted-foreground" />
+                      <Phone className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                       <a
                         href="tel:+94771234531"
                         className="text-xs font-semibold text-foreground hover:text-cyan transition-colors"
@@ -448,7 +451,7 @@ export function Contact() {
               </div>
 
               {/* USA Office */}
-              <div className="rounded-2xl border border-border/80 bg-card/75 p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
+              <div className="rounded-2xl border border-border/80 bg-card/75 p-4 sm:p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
                 <div className="flex items-start gap-3.5">
                   <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-surface/50 text-cyan">
                     <MapPin className="h-4 w-4" />
@@ -460,12 +463,12 @@ export function Contact() {
                     <h4 className="text-sm font-bold text-foreground">
                       USA Office
                     </h4>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
+                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground break-words">
                       16 Washington Mews<br />
                       New York, NY 10003, USA
                     </p>
                     <div className="mt-3 flex items-center gap-2 pt-2 border-t border-border/40">
-                      <Phone className="h-3.5 w-3.5 text-muted-foreground" />
+                      <Phone className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                       <a
                         href="tel:+17019996600"
                         className="text-xs font-semibold text-foreground hover:text-cyan transition-colors"
@@ -479,10 +482,10 @@ export function Contact() {
             </div>
 
             {/* Trust badge */}
-            <div className="rounded-xl border border-border/60 bg-surface/30 p-4">
+            <div className="rounded-xl border border-border/60 bg-surface/30 p-3.5 sm:p-4">
               <div className="flex items-center gap-2 font-mono text-xs font-semibold text-foreground">
-                <span className="h-2 w-2 rounded-full bg-green animate-pulse" />
-                Sovereign Infrastructure & SOC 2 Compliant Ready
+                <span className="h-2 w-2 rounded-full bg-green animate-pulse shrink-0" />
+                <span>Sovereign Infrastructure & SOC 2 Compliant Ready</span>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">
                 Enterprise on-premise deployments support isolated air-gapped industrial plant configurations.
@@ -493,7 +496,7 @@ export function Contact() {
 
         {/* Right Column — Enterprise Contact Form */}
         <Reveal delay={0.16} className="lg:col-span-7">
-          <div className="rounded-3xl border border-border/90 bg-card/90 p-6 shadow-xl backdrop-blur-xl sm:p-8">
+          <div className="rounded-3xl border border-border/90 bg-card/90 p-4 sm:p-8 shadow-xl backdrop-blur-xl">
             <div className="border-b border-border/60 pb-5">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
@@ -558,7 +561,7 @@ export function Contact() {
                       value={formData.fullName}
                       onChange={handleChange}
                       placeholder="e.g. Elena Rostova"
-                      className="w-full rounded-xl border border-border/80 bg-surface/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
+                      className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                     />
                   </div>
 
@@ -578,7 +581,7 @@ export function Contact() {
                       value={formData.email}
                       onChange={handleChange}
                       placeholder="e.g. elena@acmeindustrial.com"
-                      className="w-full rounded-xl border border-border/80 bg-surface/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
+                      className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                     />
                   </div>
                 </div>
@@ -600,7 +603,7 @@ export function Contact() {
                       value={formData.company}
                       onChange={handleChange}
                       placeholder="e.g. Precision Robotics Corp"
-                      className="w-full rounded-xl border border-border/80 bg-surface/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
+                      className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                     />
                   </div>
 
@@ -619,7 +622,7 @@ export function Contact() {
                       value={formData.jobTitle}
                       onChange={handleChange}
                       placeholder="e.g. VP Operations & Reliability"
-                      className="w-full rounded-xl border border-border/80 bg-surface/50 px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
+                      className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                     />
                   </div>
                 </div>
@@ -638,7 +641,7 @@ export function Contact() {
                     required
                     value={formData.topic}
                     onChange={handleChange}
-                    className="w-full rounded-xl border border-border/80 bg-surface/50 px-4 py-2.5 text-sm text-foreground transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
+                    className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                   >
                     <option value="" disabled className="bg-card text-muted-foreground">
                       Select an operational focus...
@@ -667,13 +670,15 @@ export function Contact() {
                     value={formData.requirements}
                     onChange={handleChange}
                     placeholder="Describe your asset environment (machine types, sensor interfaces, plant locations, or lifecycle priorities)..."
-                    className="w-full resize-none rounded-xl border border-border/80 bg-surface/50 px-4 py-3 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
+                    className="w-full resize-none rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                   />
                 </div>
 
                 {/* Cloudflare Turnstile Container */}
                 <div className="py-1">
-                  <div ref={turnstileContainerRef} className="cf-turnstile min-h-[65px]" />
+                  <div className="cf-turnstile-wrapper overflow-hidden max-w-full">
+                    <div ref={turnstileContainerRef} className="cf-turnstile min-h-[65px]" />
+                  </div>
                 </div>
 
                 {/* Primary CTA button */}

@@ -6,7 +6,6 @@ import { Dashboard } from "@/components/matterloop/Dashboard";
 import { Capabilities } from "@/components/matterloop/Capabilities";
 import { Testimonials } from "@/components/matterloop/Testimonials";
 import { Team } from "@/components/matterloop/Team";
-import { ApiTerminal } from "@/components/matterloop/ApiTerminal";
 import { Pricing } from "@/components/matterloop/Pricing";
 import { Contact } from "@/components/matterloop/Contact";
 import { Footer } from "@/components/matterloop/Footer";
@@ -64,7 +63,6 @@ function Index() {
         <Capabilities />
         <Testimonials />
         <Team />
-        <ApiTerminal />
         <Pricing />
 
         <section className="relative w-full overflow-hidden py-16 md:py-24">
@@ -72,15 +70,15 @@ function Index() {
             className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
             style={{ backgroundImage: "url('/Ready%20to%20act%20sooner.svg')" }}
           />
-          <div className="relative mx-auto max-w-7xl px-5 sm:px-8">
-            <div className="glass overflow-hidden rounded-[28px] px-6 py-8 sm:px-8 lg:px-10">
-              <div className="grid gap-8 lg:grid-cols-[1.3fr_auto] lg:items-center">
+          <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
+            <div className="glass overflow-hidden rounded-[28px] px-4 py-6 sm:px-8 sm:py-8 lg:px-10">
+              <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.3fr_auto] lg:items-center">
                 <div>
                   <Eyebrow>Ready to act sooner?</Eyebrow>
-                  <h3 className="mt-5 max-w-xl text-3xl font-bold tracking-tight text-balance sm:text-4xl">
+                  <h3 className="mt-4 sm:mt-5 max-w-xl text-2xl font-bold tracking-tight text-balance sm:text-4xl">
                     Turn asset health into a stronger operating strategy.
                   </h3>
-                  <p className="mt-4 max-w-xl text-sm leading-relaxed text-muted-foreground sm:text-base">
+                  <p className="mt-3 sm:mt-4 max-w-xl text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground">
                     Connect your critical systems, surface hidden risk earlier, and give every team a shared view of reliability and performance.
                   </p>
                 </div>

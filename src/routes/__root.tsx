@@ -100,6 +100,20 @@ function RootComponent() {
     };
 
     win.Tawk_API = win.Tawk_API ?? {};
+    win.Tawk_API.customStyle = {
+      visibility: {
+        desktop: {
+          position: "br",
+          xOffset: 20,
+          yOffset: 20,
+        },
+        mobile: {
+          position: "br",
+          xOffset: 12,
+          yOffset: 12,
+        },
+      },
+    };
     win.Tawk_LoadStart = win.Tawk_LoadStart ?? new Date();
 
     const script = document.createElement("script");

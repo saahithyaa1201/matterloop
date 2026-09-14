@@ -40,7 +40,7 @@ export function Capabilities() {
         className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
         style={{ backgroundImage: "url('/Capabilities.svg')" }}
       />
-      <div className="relative mx-auto w-full max-w-7xl px-5 sm:px-8">
+      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-8">
         <SectionHeading
           eyebrow="Capabilities"
           title="Four engines. One lifecycle model."
@@ -50,7 +50,7 @@ export function Capabilities() {
       <div className="mt-12 grid gap-5 md:grid-cols-2">
         {caps.map((c, i) => (
           <Reveal key={c.title} delay={i * 0.08}>
-            <div className="group h-full rounded-2xl border border-border bg-surface/70 p-6 transition-all hover:border-cyan/50 hover:glow-border">
+            <div className="group h-full rounded-2xl border border-border bg-surface/70 p-4 sm:p-6 transition-all hover:border-cyan/50 hover:glow-border">
               <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl border border-border bg-background/60">
                 <img src={c.image} alt={c.title} className="h-6 w-6 object-contain" />
               </span>
@@ -72,7 +72,7 @@ export function Capabilities() {
       </div>
 
       <Reveal delay={0.1} className="mt-8">
-        <div className="glass grid grid-cols-[minmax(0,1fr)] items-center gap-5 rounded-2xl p-6 sm:grid-cols-[minmax(0,1fr)_auto]">
+        <div className="glass grid grid-cols-[minmax(0,1fr)] items-center gap-5 rounded-2xl p-4 sm:p-6 sm:grid-cols-[minmax(0,1fr)_auto]">
           <div className="min-w-0">
             <p className="font-mono text-[11px] uppercase tracking-[0.2em] text-cyan">
               Technical showcase

@@ -66,11 +66,11 @@ export function DashboardHeader({
               onClick={() => setFacilityDropdownOpen((v) => !v)}
               className="flex items-center gap-2 rounded-xl border border-border/80 bg-surface/60 px-3 py-1.5 text-xs font-semibold text-foreground transition-all hover:border-cyan/50 hover:bg-surface focus:outline-hidden"
             >
-              <Building2 className="h-3.5 w-3.5 text-cyan" />
-              <span className="truncate max-w-[160px] sm:max-w-none">
+              <Building2 className="h-3.5 w-3.5 text-cyan shrink-0" />
+              <span className="truncate max-w-[120px] sm:max-w-none">
                 {currentFacility.name}
               </span>
-              <ChevronDown className="h-3.5 w-3.5 text-muted-foreground ml-0.5" />
+              <ChevronDown className="h-3.5 w-3.5 text-muted-foreground ml-0.5 shrink-0" />
             </button>
 
             {facilityDropdownOpen && (
@@ -117,7 +117,7 @@ export function DashboardHeader({
         </div>
 
         {/* Center: Global Search */}
-        <div className="relative flex-1 max-w-md">
+        <div className="relative flex-1 w-full max-w-md">
           <Search className="pointer-events-none absolute left-3 top-1/2 -translate-y-1/2 h-3.5 w-3.5 text-muted-foreground" />
           <input
             type="text"
@@ -137,7 +137,7 @@ export function DashboardHeader({
         </div>
 
         {/* Right: Date range, AI button, Notifications, Profile */}
-        <div className="flex flex-wrap items-center justify-end gap-2.5 self-end lg:self-auto">
+        <div className="flex flex-wrap items-center justify-start sm:justify-end gap-2 w-full lg:w-auto">
           {/* Time range selector */}
           <div className="flex items-center rounded-xl border border-border/80 bg-surface/50 p-0.5 text-xs font-mono">
             <Clock className="ml-2 mr-1 h-3 w-3 text-muted-foreground hidden sm:inline-block" />
