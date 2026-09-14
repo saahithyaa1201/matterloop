@@ -38,7 +38,7 @@ export function ApiTerminal() {
 
       <div className="mt-12 grid gap-6 lg:grid-cols-[1.35fr_1fr]">
         <Reveal>
-          <div className="overflow-hidden rounded-2xl border border-border bg-[#0a0d14]">
+          <div className="overflow-hidden rounded-2xl border border-border bg-[#0a0d14] w-full min-w-0">
             <div className="flex items-center gap-2 border-b border-border px-4 py-3">
               <span className="h-2.5 w-2.5 rounded-full bg-coral/70" />
               <span className="h-2.5 w-2.5 rounded-full bg-amber/70" />

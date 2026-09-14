@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "motion/react";
 import { Menu, X } from "lucide-react";
+import { Link } from "@tanstack/react-router";
 
 const links = [
   { label: "Platform", href: "#platform" },
@@ -38,12 +39,12 @@ export function Nav() {
         </nav>
 
         <div className="hidden items-center gap-3 lg:flex">
-          <a
-            href="#dashboard"
+          <Link
+            to="/Product"
             className="rounded-lg border border-cyan/50 px-4 py-2 text-sm font-semibold text-cyan transition-all hover:bg-cyan/10 hover:glow-border"
           >
             Metrava
-          </a>
+          </Link>
         </div>
 
         <button

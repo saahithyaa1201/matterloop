@@ -18,7 +18,7 @@ export function CookieBanner({
 }: CookieBannerProps) {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-50 p-4 sm:p-6 sm:bottom-6 sm:left-6 sm:right-auto pointer-events-none flex flex-col items-center sm:items-start animate-in fade-in slide-in-from-bottom-4 duration-500 ease-out fill-mode-forwards">
-      <div className="pointer-events-auto w-full max-w-[24rem] sm:max-w-md rounded-2xl border border-border bg-background/95 backdrop-blur-xl p-5 sm:p-6 shadow-2xl glass">
+      <div className="pointer-events-auto w-full max-w-[24rem] sm:max-w-md rounded-2xl border border-border bg-card p-5 sm:p-6 shadow-[0_20px_50px_rgba(117,85,60,0.15)]">
         
         <div className="flex items-start justify-between gap-4 mb-3">
           <div className="flex items-center gap-2">
