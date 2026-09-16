@@ -16,7 +16,7 @@ const team = [
     image: "/t2.svg",
   },
   {
-    name: "Cynthia Benedict",
+    name: "Cleon Mendis",
     role: "Head of Lifecycle Data",
     bio: "Builds the asset graph that unifies telemetry, service records and supply chain events.",
     image: "/t3.svg",

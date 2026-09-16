@@ -96,7 +96,7 @@ export const Route = createFileRoute("/Product")({
       { name: "description", content: "Turn physical machinery, telemetry, maintenance history and supply chain data into one unified layer of lifecycle intelligence." }
     ],
     links: [
-      { rel: "canonical", href: "https://matterloop.net/Product" }
+      { rel: "canonical", href: "https://matterloop.net/product" }
     ]
   }),
   component: ProductPage,

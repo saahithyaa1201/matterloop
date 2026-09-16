@@ -27,7 +27,7 @@ const items = [
     quote:
       "As our infrastructure expanded, managing increasing amounts of operational data became more difficult. This platform gave us a structured way to bring those signals together and turn them into useful insights. Our teams can now spot patterns earlier, collaborate more effectively, and make decisions based on a much stronger understanding of what is happening across the business.",
     name: "Jonathan Parker",
-    role: "Digital Services Company",
+    role: "Chief Financial Officer",
     company: "Digital Services Company",
     image: "/testi3.svg",
     kpi: "Earlier pattern detection",
