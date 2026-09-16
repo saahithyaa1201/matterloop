@@ -35,28 +35,28 @@ const frameworks = ["NVIDIA Metropolis", "RAPIDS", "Omniverse"];
 
 export function Capabilities() {
   return (
-    <section id="capabilities" className="relative w-full overflow-hidden py-20 md:py-28">
+    <section id="capabilities" className="relative w-full py-20 overflow-hidden md:py-28">
       <div
-        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
+        className="absolute inset-0 bg-center bg-no-repeat bg-cover pointer-events-none opacity-70"
         style={{ backgroundImage: "url('/Capabilities.svg')" }}
       />
-      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-8">
+      <div className="relative w-full px-5 mx-auto max-w-7xl sm:px-8">
         <SectionHeading
           eyebrow="Capabilities"
           title="Four engines. One lifecycle model."
           subtitle="Every module writes into a shared asset graph, so insight compounds instead of fragmenting."
         />
 
-      <div className="mt-12 grid gap-5 md:grid-cols-2">
+      <div className="grid gap-5 mt-12 md:grid-cols-2">
         {caps.map((c, i) => (
           <Reveal key={c.title} delay={i * 0.08}>
-            <div className="group h-full rounded-2xl border border-border bg-surface/70 p-4 sm:p-6 transition-all hover:border-cyan/50 hover:glow-border">
-              <span className="grid h-11 w-11 place-items-center overflow-hidden rounded-xl border border-border bg-background/60">
-                <img src={c.image} alt={c.title} className="h-6 w-6 object-contain" />
+            <div className="h-full p-6 transition-all border group rounded-2xl border-border bg-surface/70 hover:border-cyan/50 hover:glow-border">
+              <span className="grid overflow-hidden border h-11 w-11 place-items-center rounded-xl border-border bg-background/60">
+                <img src={c.image} alt={c.title} className="object-contain w-6 h-6" />
               </span>
               <h3 className="mt-5 text-lg font-bold tracking-tight">{c.title}</h3>
               <p className="mt-2 text-sm leading-relaxed text-muted-foreground">{c.desc}</p>
-              <ul className="mt-5 flex flex-wrap gap-2">
+              <ul className="flex flex-wrap gap-2 mt-5">
                 {c.points.map((p) => (
                   <li
                     key={p}

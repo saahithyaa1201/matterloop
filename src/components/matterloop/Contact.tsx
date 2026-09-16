@@ -103,11 +103,10 @@ export function Contact() {
     const renderWidget = () => {
       if (!turnstileContainerRef.current || !window.turnstile || widgetIdRef.current) return;
       try {
-        const isSmallMobile = typeof window !== "undefined" && window.innerWidth < 360;
         const widgetId = window.turnstile.render(turnstileContainerRef.current, {
           sitekey: TURNSTILE_SITE_KEY,
           theme: "dark",
-          size: isSmallMobile ? "compact" : "flexible",
+          size: "flexible",
           callback: (token: string) => {
             if (isMounted) {
               setTurnstileToken(token);
@@ -309,12 +308,12 @@ export function Contact() {
 
       {/* Industrial Intelligence Visual Flow */}
       <Reveal delay={0.08} className="mt-10">
-        <div className="overflow-hidden rounded-2xl border border-border/80 bg-card/60 p-4 shadow-xs backdrop-blur-xl sm:p-6">
-          <div className="flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between border-b border-border/50 pb-5">
+        <div className="p-4 overflow-hidden border shadow-xs rounded-2xl border-border/80 bg-card/60 backdrop-blur-xl sm:p-6">
+          <div className="flex flex-col gap-4 pb-5 border-b lg:flex-row lg:items-center lg:justify-between border-border/50">
             <div className="flex flex-wrap items-center gap-2">
               <div className="flex items-center gap-2">
                 <span className="flex h-2.5 w-2.5 rounded-full bg-cyan shrink-0">
-                  <span className="h-full w-full rounded-full bg-cyan animate-ping opacity-75" />
+                  <span className="w-full h-full rounded-full opacity-75 bg-cyan animate-ping" />
                 </span>
                 <span className="font-mono text-xs font-semibold tracking-wider uppercase text-foreground">
                   MatterLoop Intelligence Flow
@@ -337,7 +336,7 @@ export function Contact() {
                     key={node.label}
                     className="inline-flex items-center gap-1.5 rounded-lg border border-border/70 bg-surface/50 px-2.5 py-1 font-mono text-[11px] text-muted-foreground transition-colors hover:border-cyan/50 hover:text-foreground"
                   >
-                    <Icon className="h-3 w-3 text-cyan shrink-0" />
+                    <Icon className="w-3 h-3 text-cyan shrink-0" />
                     {node.label}
                   </span>
                 );
@@ -375,13 +374,13 @@ export function Contact() {
       </Reveal>
 
       {/* Main Two-Column Layout */}
-      <div className="mt-10 grid gap-8 lg:grid-cols-12 lg:items-start">
+      <div className="grid gap-8 mt-10 lg:grid-cols-12 lg:items-start">
         {/* Left Column — Enterprise Contact Information */}
         <Reveal delay={0.12} className="lg:col-span-5">
           <div className="space-y-6">
             <div>
               <div className="inline-flex items-center gap-2 rounded-md border border-cyan/40 bg-cyan/10 px-2.5 py-1 font-mono text-xs font-semibold text-cyan">
-                <Radio className="h-3 w-3 animate-pulse" />
+                <Radio className="w-3 h-3 animate-pulse" />
                 COMMAND CENTER DISPATCH
               </div>
               <h3 className="mt-3 text-2xl font-bold tracking-tight text-foreground sm:text-3xl">
@@ -393,12 +392,12 @@ export function Contact() {
             </div>
 
             {/* Direct Email Card */}
-            <div className="rounded-2xl border border-border/80 bg-card/75 p-4 sm:p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
+            <div className="p-4 transition-all border shadow-xs rounded-2xl border-border/80 bg-card/75 sm:p-5 backdrop-blur-md hover:border-cyan/50 hover:shadow-md">
               <div className="flex items-start gap-3.5 sm:gap-4">
-                <div className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl border border-cyan/40 bg-cyan/10 text-cyan">
-                  <Mail className="h-5 w-5" />
+                <div className="flex items-center justify-center w-10 h-10 border sm:h-11 sm:w-11 shrink-0 rounded-xl border-cyan/40 bg-cyan/10 text-cyan">
+                  <Mail className="w-5 h-5" />
                 </div>
-                <div className="min-w-0 flex-1">
+                <div className="flex-1 min-w-0">
                   <span className="font-mono text-[11px] uppercase tracking-wider text-muted-foreground">
                     Inquiries & Partnerships
                   </span>
@@ -407,7 +406,7 @@ export function Contact() {
                   </h4>
                   <a
                     href="mailto:contact@matterloop.net"
-                    className="mt-1 block text-sm font-semibold text-cyan hover:underline break-all"
+                    className="block mt-1 text-sm font-semibold break-all text-cyan hover:underline"
                   >
                     contact@matterloop.net
                   </a>
@@ -421,27 +420,27 @@ export function Contact() {
             {/* Dual Global Offices */}
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-1">
               {/* Sri Lanka Office */}
-              <div className="rounded-2xl border border-border/80 bg-card/75 p-4 sm:p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
+              <div className="p-4 transition-all border shadow-xs rounded-2xl border-border/80 bg-card/75 sm:p-5 backdrop-blur-md hover:border-cyan/50 hover:shadow-md">
                 <div className="flex items-start gap-3.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-surface/50 text-cyan">
-                    <MapPin className="h-4 w-4" />
+                  <div className="flex items-center justify-center w-10 h-10 border shrink-0 rounded-xl border-border/70 bg-surface/50 text-cyan">
+                    <MapPin className="w-4 h-4" />
                   </div>
-                  <div className="min-w-0 flex-1">
+                  <div className="flex-1 min-w-0">
                     <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-cyan">
                       Asia-Pacific Operations
                     </span>
                     <h4 className="text-sm font-bold text-foreground">
                       Sri Lanka Office
                     </h4>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground break-words">
+                    <p className="mt-1 text-xs leading-relaxed break-words text-muted-foreground">
                       No. 10 Deasonton Place<br />
                       Colombo 00300, Sri Lanka
                     </p>
-                    <div className="mt-3 flex items-center gap-2 pt-2 border-t border-border/40">
+                    <div className="flex items-center gap-2 pt-2 mt-3 border-t border-border/40">
                       <Phone className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                       <a
                         href="tel:+94771234531"
-                        className="text-xs font-semibold text-foreground hover:text-cyan transition-colors"
+                        className="text-xs font-semibold transition-colors text-foreground hover:text-cyan"
                       >
                         +94 77 123 4531
                       </a>
@@ -451,27 +450,27 @@ export function Contact() {
               </div>
 
               {/* USA Office */}
-              <div className="rounded-2xl border border-border/80 bg-card/75 p-4 sm:p-5 shadow-xs backdrop-blur-md transition-all hover:border-cyan/50 hover:shadow-md">
+              <div className="p-4 transition-all border shadow-xs rounded-2xl border-border/80 bg-card/75 sm:p-5 backdrop-blur-md hover:border-cyan/50 hover:shadow-md">
                 <div className="flex items-start gap-3.5">
-                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-border/70 bg-surface/50 text-cyan">
-                    <MapPin className="h-4 w-4" />
+                  <div className="flex items-center justify-center w-10 h-10 border shrink-0 rounded-xl border-border/70 bg-surface/50 text-cyan">
+                    <MapPin className="w-4 h-4" />
                   </div>
-                  <div className="min-w-0 flex-1">
+                  <div className="flex-1 min-w-0">
                     <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-cyan">
                       North America Operations
                     </span>
                     <h4 className="text-sm font-bold text-foreground">
                       USA Office
                     </h4>
-                    <p className="mt-1 text-xs leading-relaxed text-muted-foreground break-words">
+                    <p className="mt-1 text-xs leading-relaxed break-words text-muted-foreground">
                       16 Washington Mews<br />
                       New York, NY 10003, USA
                     </p>
-                    <div className="mt-3 flex items-center gap-2 pt-2 border-t border-border/40">
+                    <div className="flex items-center gap-2 pt-2 mt-3 border-t border-border/40">
                       <Phone className="h-3.5 w-3.5 text-muted-foreground shrink-0" />
                       <a
                         href="tel:+17019996600"
-                        className="text-xs font-semibold text-foreground hover:text-cyan transition-colors"
+                        className="text-xs font-semibold transition-colors text-foreground hover:text-cyan"
                       >
                         +1 701 999 6600
                       </a>
@@ -484,7 +483,7 @@ export function Contact() {
             {/* Trust badge */}
             <div className="rounded-xl border border-border/60 bg-surface/30 p-3.5 sm:p-4">
               <div className="flex items-center gap-2 font-mono text-xs font-semibold text-foreground">
-                <span className="h-2 w-2 rounded-full bg-green animate-pulse shrink-0" />
+                <span className="w-2 h-2 rounded-full bg-green animate-pulse shrink-0" />
                 <span>Sovereign Infrastructure & SOC 2 Compliant Ready</span>
               </div>
               <p className="mt-1 text-xs text-muted-foreground">
@@ -496,8 +495,8 @@ export function Contact() {
 
         {/* Right Column — Enterprise Contact Form */}
         <Reveal delay={0.16} className="lg:col-span-7">
-          <div className="rounded-3xl border border-border/90 bg-card/90 p-4 sm:p-8 shadow-xl backdrop-blur-xl">
-            <div className="border-b border-border/60 pb-5">
+          <div className="p-4 border shadow-xl rounded-3xl border-border/90 bg-card/90 sm:p-8 backdrop-blur-xl">
+            <div className="pb-5 border-b border-border/60">
               <div className="flex items-center justify-between">
                 <h3 className="text-xl font-bold tracking-tight text-foreground sm:text-2xl">
                   Start a Conversation
@@ -517,13 +516,13 @@ export function Contact() {
                 animate={{ opacity: 1, scale: 1 }}
                 className="py-12 text-center"
               >
-                <div className="mx-auto flex h-16 w-16 items-center justify-center rounded-2xl border border-green/40 bg-green/15 text-green shadow-inner">
-                  <CheckCircle2 className="h-8 w-8" />
+                <div className="flex items-center justify-center w-16 h-16 mx-auto border shadow-inner rounded-2xl border-green/40 bg-green/15 text-green">
+                  <CheckCircle2 className="w-8 h-8" />
                 </div>
                 <h4 className="mt-5 text-xl font-bold text-foreground">
                   Inquiry received.
                 </h4>
-                <p className="mx-auto mt-2 max-w-md text-sm leading-relaxed text-muted-foreground">
+                <p className="max-w-md mx-auto mt-2 text-sm leading-relaxed text-muted-foreground">
                   Thank you for contacting MatterLoop. Our team will review your message and get back to you shortly.
                 </p>
                 <div className="mt-8">
@@ -539,7 +538,7 @@ export function Contact() {
             ) : (
               <form onSubmit={handleSubmit} className="mt-6 space-y-4">
                 {errorMessage && (
-                  <div className="rounded-xl border border-destructive/40 bg-destructive/10 p-3 text-xs font-semibold text-destructive">
+                  <div className="p-3 text-xs font-semibold border rounded-xl border-destructive/40 bg-destructive/10 text-destructive">
                     {errorMessage}
                   </div>
                 )}
@@ -549,7 +548,7 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="fullName"
-                      className="block font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                      className="block font-mono text-xs font-medium tracking-wider uppercase text-muted-foreground"
                     >
                       Full Name <span className="text-cyan">*</span>
                     </label>
@@ -569,7 +568,7 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="email"
-                      className="block font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                      className="block font-mono text-xs font-medium tracking-wider uppercase text-muted-foreground"
                     >
                       Work Email <span className="text-cyan">*</span>
                     </label>
@@ -591,7 +590,7 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="company"
-                      className="block font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                      className="block font-mono text-xs font-medium tracking-wider uppercase text-muted-foreground"
                     >
                       Company <span className="text-cyan">*</span>
                     </label>
@@ -611,7 +610,7 @@ export function Contact() {
                   <div className="space-y-1.5">
                     <label
                       htmlFor="jobTitle"
-                      className="block font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                      className="block font-mono text-xs font-medium tracking-wider uppercase text-muted-foreground"
                     >
                       Job Title
                     </label>
@@ -631,7 +630,7 @@ export function Contact() {
                 <div className="space-y-1.5">
                   <label
                     htmlFor="topic"
-                    className="block font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                    className="block font-mono text-xs font-medium tracking-wider uppercase text-muted-foreground"
                   >
                     What can we help with? <span className="text-cyan">*</span>
                   </label>
@@ -658,7 +657,7 @@ export function Contact() {
                 <div className="space-y-1.5">
                   <label
                     htmlFor="requirements"
-                    className="block font-mono text-xs font-medium uppercase tracking-wider text-muted-foreground"
+                    className="block font-mono text-xs font-medium tracking-wider uppercase text-muted-foreground"
                   >
                     Tell us about your requirements <span className="text-cyan">*</span>
                   </label>
@@ -676,9 +675,7 @@ export function Contact() {
 
                 {/* Cloudflare Turnstile Container */}
                 <div className="py-1">
-                  <div className="cf-turnstile-wrapper overflow-hidden max-w-full">
-                    <div ref={turnstileContainerRef} className="cf-turnstile min-h-[65px]" />
-                  </div>
+                  <div ref={turnstileContainerRef} className="cf-turnstile min-h-[65px]" />
                 </div>
 
                 {/* Primary CTA button */}
@@ -690,13 +687,13 @@ export function Contact() {
                   >
                     {isSubmitting ? (
                       <>
-                        <Loader2 className="h-4 w-4 animate-spin" />
+                        <Loader2 className="w-4 h-4 animate-spin" />
                         <span>Sending…</span>
                       </>
                     ) : (
                       <>
                         <span>Send Inquiry</span>
-                        <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                        <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                       </>
                     )}
                   </button>

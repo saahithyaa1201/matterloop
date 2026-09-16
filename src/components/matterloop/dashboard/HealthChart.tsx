@@ -22,13 +22,13 @@ export function HealthChart({
   const data = healthChartData[timeRange];
 
   return (
-    <div className="rounded-2xl border border-border/80 bg-card/70 p-3.5 sm:p-6 shadow-xs backdrop-blur-md min-w-0">
+    <div className="p-4 border shadow-xs rounded-2xl border-border/80 bg-card/70 sm:p-6 backdrop-blur-md">
       {/* Header */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/60 pb-4">
+      <div className="flex flex-col gap-3 pb-4 border-b sm:flex-row sm:items-center sm:justify-between border-border/60">
         <div>
           <div className="flex items-center gap-2">
-            <Activity className="h-4 w-4 text-cyan" />
-            <h3 className="font-bold text-sm sm:text-base text-foreground">
+            <Activity className="w-4 h-4 text-cyan" />
+            <h3 className="text-sm font-bold sm:text-base text-foreground">
               Asset Health & Degradation Trajectory
             </h3>
           </div>
@@ -41,15 +41,15 @@ export function HealthChart({
         <div className="flex flex-wrap items-center gap-3">
           <div className="flex items-center gap-3 font-mono text-[10px] text-muted-foreground">
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-cyan" />
+              <span className="w-2 h-2 rounded-full bg-cyan" />
               Healthy
             </span>
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-amber" />
+              <span className="w-2 h-2 rounded-full bg-amber" />
               Warning
             </span>
             <span className="flex items-center gap-1">
-              <span className="h-2 w-2 rounded-full bg-coral" />
+              <span className="w-2 h-2 rounded-full bg-coral" />
               Critical
             </span>
           </div>
@@ -74,7 +74,7 @@ export function HealthChart({
       </div>
 
       {/* Chart container */}
-      <div className="mt-5 h-64 sm:h-72 w-full">
+      <div className="w-full h-64 mt-5 sm:h-72">
         <ResponsiveContainer width="100%" height="100%">
           <AreaChart data={data} margin={{ top: 10, right: 10, left: -20, bottom: 0 }}>
             <defs>
@@ -116,7 +116,7 @@ export function HealthChart({
               content={({ active, payload, label }) => {
                 if (active && payload && payload.length) {
                   return (
-                    <div className="rounded-xl border border-border bg-card/95 p-3 shadow-xl backdrop-blur-xl font-mono text-xs">
+                    <div className="p-3 font-mono text-xs border shadow-xl rounded-xl border-border bg-card/95 backdrop-blur-xl">
                       <div className="font-bold text-foreground border-b border-border/50 pb-1.5 mb-1.5">
                         Timestamp: {label}
                       </div>

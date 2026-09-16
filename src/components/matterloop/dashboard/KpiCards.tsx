@@ -113,7 +113,7 @@ export function KpiCards({
 
   return (
     <>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-6 gap-3 p-4 sm:gap-4 sm:p-6 border-b border-border/80 bg-surface/30">
+      <div className="grid grid-cols-2 gap-3 p-4 border-b sm:gap-4 sm:p-6 lg:grid-cols-6 border-border/80 bg-surface/30">
         {kpis.map((kpi) => {
           const Icon = kpi.icon;
           return (
@@ -128,7 +128,7 @@ export function KpiCards({
                   <span className="font-mono text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
                     {kpi.label}
                   </span>
-                  <div className="flex h-6 w-6 items-center justify-center rounded-lg border border-border/80 bg-surface/60 text-muted-foreground group-hover:border-cyan/40 group-hover:text-cyan transition-colors">
+                  <div className="flex items-center justify-center w-6 h-6 transition-colors border rounded-lg border-border/80 bg-surface/60 text-muted-foreground group-hover:border-cyan/40 group-hover:text-cyan">
                     <Icon className="h-3.5 w-3.5" />
                   </div>
                 </div>
@@ -149,9 +149,9 @@ export function KpiCards({
                   }`}
                 >
                   {kpi.trendPositive ? (
-                    <ArrowUpRight className="h-3 w-3" />
+                    <ArrowUpRight className="w-3 h-3" />
                   ) : (
-                    <ArrowDownRight className="h-3 w-3" />
+                    <ArrowDownRight className="w-3 h-3" />
                   )}
                   {kpi.trend}
                 </span>
@@ -164,12 +164,12 @@ export function KpiCards({
 
       {/* KPI Detail Modal Dialog */}
       {activeModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="relative w-full max-w-2xl rounded-3xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
-            <div className="flex items-start justify-between border-b border-border/70 pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="relative w-full max-w-2xl p-6 border shadow-2xl rounded-3xl border-border bg-card backdrop-blur-2xl">
+            <div className="flex items-start justify-between pb-4 border-b border-border/70">
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-xl border border-cyan/40 bg-cyan/15 text-cyan">
-                  <ShieldAlert className="h-5 w-5" />
+                <div className="flex items-center justify-center w-10 h-10 border rounded-xl border-cyan/40 bg-cyan/15 text-cyan">
+                  <ShieldAlert className="w-5 h-5" />
                 </div>
                 <div>
                   <h3 className="text-lg font-bold text-foreground">
@@ -192,7 +192,7 @@ export function KpiCards({
                 onClick={() => setActiveModal(null)}
                 className="rounded-xl border border-border/80 p-1.5 text-muted-foreground hover:border-cyan/50 hover:text-foreground"
               >
-                <X className="h-4 w-4" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -204,7 +204,7 @@ export function KpiCards({
                     onFilterByHealth?.("Healthy");
                     setActiveModal(null);
                   }}
-                  className="rounded-xl border border-green/30 bg-green/10 p-3 cursor-pointer hover:border-green transition-colors"
+                  className="p-3 transition-colors border cursor-pointer rounded-xl border-green/30 bg-green/10 hover:border-green"
                 >
                   <div className="font-mono text-2xl font-bold text-green">
                     {healthyCount}
@@ -222,7 +222,7 @@ export function KpiCards({
                     onFilterByHealth?.("Warning");
                     setActiveModal(null);
                   }}
-                  className="rounded-xl border border-amber/30 bg-amber/10 p-3 cursor-pointer hover:border-amber transition-colors"
+                  className="p-3 transition-colors border cursor-pointer rounded-xl border-amber/30 bg-amber/10 hover:border-amber"
                 >
                   <div className="font-mono text-2xl font-bold text-amber">
                     {warningCount}
@@ -240,7 +240,7 @@ export function KpiCards({
                     onFilterByHealth?.("Critical");
                     setActiveModal(null);
                   }}
-                  className="rounded-xl border border-coral/30 bg-coral/10 p-3 cursor-pointer hover:border-coral transition-colors"
+                  className="p-3 transition-colors border cursor-pointer rounded-xl border-coral/30 bg-coral/10 hover:border-coral"
                 >
                   <div className="font-mono text-2xl font-bold text-coral">
                     {criticalCount}
@@ -256,7 +256,7 @@ export function KpiCards({
 
               {/* Highest Risk Asset Quick List */}
               <div className="mt-4">
-                <div className="font-mono text-xs font-bold uppercase tracking-wider text-muted-foreground mb-2">
+                <div className="mb-2 font-mono text-xs font-bold tracking-wider uppercase text-muted-foreground">
                   Highest-Risk Equipment Requiring Attention
                 </div>
                 <div className="space-y-2">
@@ -267,7 +267,7 @@ export function KpiCards({
                         onSelectAsset(a);
                         setActiveModal(null);
                       }}
-                      className="flex items-center justify-between rounded-xl border border-border/80 bg-surface/50 p-3 hover:border-cyan/50 hover:bg-surface cursor-pointer transition-all"
+                      className="flex items-center justify-between p-3 transition-all border cursor-pointer rounded-xl border-border/80 bg-surface/50 hover:border-cyan/50 hover:bg-surface"
                     >
                       <div>
                         <div className="text-xs font-bold text-foreground">
@@ -302,11 +302,11 @@ export function KpiCards({
               </div>
             </div>
 
-            <div className="mt-6 flex justify-end gap-2 pt-4 border-t border-border/60">
+            <div className="flex justify-end gap-2 pt-4 mt-6 border-t border-border/60">
               <button
                 type="button"
                 onClick={() => setActiveModal(null)}
-                className="rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-foreground hover:border-cyan/50"
+                className="px-4 py-2 text-xs font-semibold border rounded-xl border-border bg-surface text-foreground hover:border-cyan/50"
               >
                 Close Overview
               </button>

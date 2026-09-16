@@ -43,15 +43,15 @@ export function AlertsPanel({
   };
 
   return (
-    <div className="rounded-2xl border border-border/80 bg-card/70 p-3.5 sm:p-6 shadow-xs backdrop-blur-md">
+    <div className="p-4 border shadow-xs rounded-2xl border-border/80 bg-card/70 sm:p-6 backdrop-blur-md">
       {/* Header */}
-      <div className="flex items-center justify-between border-b border-border/60 pb-4">
+      <div className="flex items-center justify-between pb-4 border-b border-border/60">
         <div className="flex items-center gap-2">
-          <AlertTriangle className="h-4 w-4 text-coral" />
-          <h3 className="font-bold text-sm sm:text-base text-foreground">
+          <AlertTriangle className="w-4 h-4 text-coral" />
+          <h3 className="text-sm font-bold sm:text-base text-foreground">
             Live Operational Alerts & Anomaly Stream
           </h3>
-          <span className="flex h-2 w-2 rounded-full bg-coral animate-ping ml-1" />
+          <span className="flex w-2 h-2 ml-1 rounded-full bg-coral animate-ping" />
         </div>
 
         <span className="font-mono text-[10px] text-muted-foreground">
@@ -73,20 +73,20 @@ export function AlertsPanel({
                 : "border-border/70 bg-surface/30 hover:border-cyan/40"
             }`}
           >
-            <div className="flex flex-col sm:flex-row sm:items-start justify-between gap-2">
+            <div className="flex flex-col justify-between gap-2 sm:flex-row sm:items-start">
               <div className="flex items-start gap-2.5">
                 <div className="mt-0.5">
                   {alert.severity === "Critical" ? (
-                    <AlertTriangle className="h-4 w-4 text-coral" />
+                    <AlertTriangle className="w-4 h-4 text-coral" />
                   ) : alert.severity === "Warning" ? (
-                    <AlertCircle className="h-4 w-4 text-amber" />
+                    <AlertCircle className="w-4 h-4 text-amber" />
                   ) : (
-                    <Info className="h-4 w-4 text-cyan" />
+                    <Info className="w-4 h-4 text-cyan" />
                   )}
                 </div>
                 <div>
-                  <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-bold text-xs text-foreground">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="text-xs font-bold text-foreground">
                       {alert.title}
                     </span>
                     <span className="font-mono text-[10px] text-cyan font-semibold">
@@ -104,20 +104,20 @@ export function AlertsPanel({
                       {alert.status}
                     </span>
                   </div>
-                  <p className="mt-1 text-xs text-muted-foreground leading-relaxed">
+                  <p className="mt-1 text-xs leading-relaxed text-muted-foreground">
                     {alert.description}
                   </p>
                 </div>
               </div>
 
               <div className="flex items-center gap-1.5 self-end sm:self-auto shrink-0 font-mono text-[10px]">
-                <span className="text-muted-foreground mr-1">{alert.timestamp}</span>
+                <span className="mr-1 text-muted-foreground">{alert.timestamp}</span>
 
                 {alert.status === "Active" && (
                   <button
                     type="button"
                     onClick={(e) => handleAcknowledge(alert.id, e)}
-                    className="rounded-md border border-border/80 bg-surface/60 px-2 py-1 hover:border-green hover:text-green transition-colors"
+                    className="px-2 py-1 transition-colors border rounded-md border-border/80 bg-surface/60 hover:border-green hover:text-green"
                   >
                     Acknowledge
                   </button>
@@ -129,7 +129,7 @@ export function AlertsPanel({
                     e.stopPropagation();
                     onSelectAssetById(alert.assetId);
                   }}
-                  className="rounded-md border border-cyan/40 bg-cyan/10 px-2 py-1 text-cyan hover:bg-cyan hover:text-primary-foreground transition-colors"
+                  className="px-2 py-1 transition-colors border rounded-md border-cyan/40 bg-cyan/10 text-cyan hover:bg-cyan hover:text-primary-foreground"
                 >
                   View Asset
                 </button>
@@ -141,9 +141,9 @@ export function AlertsPanel({
 
       {/* Alert Detail Modal */}
       {selectedAlert && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="relative w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
-            <div className="flex items-start justify-between border-b border-border/70 pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="relative w-full max-w-lg p-6 border shadow-2xl rounded-3xl border-border bg-card backdrop-blur-2xl">
+            <div className="flex items-start justify-between pb-4 border-b border-border/70">
               <div>
                 <span className="font-mono text-[10px] font-bold uppercase text-coral">
                   {selectedAlert.severity} Severity Alert • {selectedAlert.id}
@@ -161,7 +161,7 @@ export function AlertsPanel({
                 onClick={() => setSelectedAlert(null)}
                 className="rounded-xl border border-border p-1.5 text-muted-foreground hover:text-foreground"
               >
-                <X className="h-4 w-4" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -170,7 +170,7 @@ export function AlertsPanel({
                 <span className="font-mono text-[10px] uppercase text-muted-foreground block mb-1">
                   Incident Telemetry Summary
                 </span>
-                <p className="text-foreground leading-relaxed">
+                <p className="leading-relaxed text-foreground">
                   {selectedAlert.description}
                 </p>
               </div>
@@ -179,14 +179,14 @@ export function AlertsPanel({
                 <span className="font-mono text-[10px] uppercase text-cyan block mb-1">
                   Prescriptive Investigation Step
                 </span>
-                <p className="text-foreground leading-relaxed">
+                <p className="leading-relaxed text-foreground">
                   {selectedAlert.recommendedAction}
                 </p>
               </div>
             </div>
 
             {/* Action Bar */}
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-2 pt-4 border-t border-border/60">
+            <div className="flex flex-wrap items-center justify-between gap-2 pt-4 mt-6 border-t border-border/60">
               <button
                 type="button"
                 onClick={() => {
@@ -203,7 +203,7 @@ export function AlertsPanel({
                   <button
                     type="button"
                     onClick={() => handleAcknowledge(selectedAlert.id)}
-                    className="rounded-xl border border-border bg-surface px-3 py-2 text-xs font-semibold text-foreground hover:border-green hover:text-green"
+                    className="px-3 py-2 text-xs font-semibold border rounded-xl border-border bg-surface text-foreground hover:border-green hover:text-green"
                   >
                     Acknowledge
                   </button>
@@ -215,7 +215,7 @@ export function AlertsPanel({
                     handleAssign(selectedAlert.id);
                     setSelectedAlert(null);
                   }}
-                  className="rounded-xl border border-cyan/50 bg-cyan/15 px-3 py-2 text-xs font-semibold text-cyan hover:bg-cyan hover:text-primary-foreground"
+                  className="px-3 py-2 text-xs font-semibold border rounded-xl border-cyan/50 bg-cyan/15 text-cyan hover:bg-cyan hover:text-primary-foreground"
                 >
                   Assign Tech
                 </button>
@@ -226,7 +226,7 @@ export function AlertsPanel({
                     onAskAiAboutAlert?.(selectedAlert.description);
                     setSelectedAlert(null);
                   }}
-                  className="rounded-xl bg-cyan px-3 py-2 text-xs font-bold text-primary-foreground hover:brightness-110"
+                  className="px-3 py-2 text-xs font-bold rounded-xl bg-cyan text-primary-foreground hover:brightness-110"
                 >
                   Investigate with AI
                 </button>

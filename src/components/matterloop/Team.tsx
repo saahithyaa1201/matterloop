@@ -51,7 +51,7 @@ export function Team() {
         className="absolute inset-0 bg-center bg-no-repeat bg-cover pointer-events-none opacity-70"
         style={{ backgroundImage: "url('/Leadership.svg')" }}
       />
-      <div className="relative w-full px-4 mx-auto max-w-7xl sm:px-8">
+      <div className="relative w-full px-5 mx-auto max-w-7xl sm:px-8">
         <SectionHeading
           eyebrow="Leadership"
           title="Built by Industrial AI Pioneers"

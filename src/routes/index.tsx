@@ -73,22 +73,22 @@ function Index() {
             className="absolute inset-0 bg-center bg-no-repeat bg-cover pointer-events-none opacity-70"
             style={{ backgroundImage: "url('/Ready%20to%20act%20sooner.svg')" }}
           />
-          <div className="relative px-4 mx-auto max-w-7xl sm:px-8">
-            <div className="glass overflow-hidden rounded-[28px] px-4 py-6 sm:px-8 sm:py-8 lg:px-10">
-              <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.3fr_auto] lg:items-center">
+          <div className="relative px-5 mx-auto max-w-7xl sm:px-8">
+            <div className="glass overflow-hidden rounded-[28px] px-6 py-8 sm:px-8 lg:px-10">
+              <div className="grid gap-8 lg:grid-cols-[1.3fr_auto] lg:items-center">
                 <div>
                   <Eyebrow>Ready to act sooner?</Eyebrow>
-                  <h3 className="max-w-xl mt-4 text-2xl font-bold tracking-tight sm:mt-5 text-balance sm:text-4xl">
+                  <h3 className="max-w-xl mt-5 text-3xl font-bold tracking-tight text-balance sm:text-4xl">
                     Turn asset health into a stronger operating strategy.
                   </h3>
-                  <p className="max-w-xl mt-3 text-xs leading-relaxed sm:mt-4 sm:text-sm md:text-base text-muted-foreground">
+                  <p className="max-w-xl mt-4 text-sm leading-relaxed text-muted-foreground sm:text-base">
                     Connect your critical systems, surface hidden risk earlier, and give every team a shared view of reliability and performance.
                   </p>
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
                   <a
-                    href="#contact"
+                    href="#pricing"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#75553c] px-5 py-3 text-sm font-semibold text-[#efece3] transition-all hover:brightness-110 hover:shadow-[0_14px_28px_rgba(117,85,60,0.18)]"
                   >
                     Book a demo

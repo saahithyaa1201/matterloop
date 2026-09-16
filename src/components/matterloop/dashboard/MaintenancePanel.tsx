@@ -30,13 +30,13 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
   });
 
   return (
-    <div className="rounded-2xl border border-border/80 bg-card/70 p-3.5 sm:p-6 shadow-xs backdrop-blur-md">
+    <div className="p-4 border shadow-xs rounded-2xl border-border/80 bg-card/70 sm:p-6 backdrop-blur-md">
       {/* Header */}
-      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between border-b border-border/60 pb-4">
+      <div className="flex flex-col gap-3 pb-4 border-b sm:flex-row sm:items-center sm:justify-between border-border/60">
         <div>
           <div className="flex items-center gap-2">
-            <Wrench className="h-4 w-4 text-amber" />
-            <h3 className="font-bold text-sm sm:text-base text-foreground">
+            <Wrench className="w-4 h-4 text-amber" />
+            <h3 className="text-sm font-bold sm:text-base text-foreground">
               Maintenance Intelligence & Prescriptive Scheduling
             </h3>
           </div>
@@ -46,7 +46,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
         </div>
 
         {/* Status filter tabs */}
-        <div className="flex flex-wrap items-center rounded-lg border border-border/70 bg-surface/50 p-0.5 font-mono text-[10px]">
+        <div className="flex items-center rounded-lg border border-border/70 bg-surface/50 p-0.5 font-mono text-[10px]">
           {(["All", "Overdue", "Due", "Scheduled"] as const).map((tab) => (
             <button
               key={tab}
@@ -65,16 +65,16 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
       </div>
 
       {/* Recommendations List */}
-      <div className="mt-4 grid gap-3 sm:grid-cols-2">
+      <div className="grid gap-3 mt-4 sm:grid-cols-2">
         {filteredRecs.map((rec) => (
           <div
             key={rec.id}
-            className="group flex flex-col justify-between rounded-xl border border-border/70 bg-surface/40 p-4 transition-all hover:border-amber/50 hover:bg-surface/70"
+            className="flex flex-col justify-between p-4 transition-all border group rounded-xl border-border/70 bg-surface/40 hover:border-amber/50 hover:bg-surface/70"
           >
             <div>
               <div className="flex items-start justify-between gap-2">
                 <div>
-                  <div className="font-bold text-xs text-foreground group-hover:text-amber transition-colors">
+                  <div className="text-xs font-bold transition-colors text-foreground group-hover:text-amber">
                     {rec.assetName}
                   </div>
                   <div className="font-mono text-[10px] text-muted-foreground">
@@ -97,19 +97,19 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
 
               <div className="mt-2.5 space-y-1 text-xs">
                 <div className="text-muted-foreground text-[11px]">
-                  <span className="text-foreground font-medium">Condition: </span>
+                  <span className="font-medium text-foreground">Condition: </span>
                   {rec.detectedCondition}
                 </div>
                 <div className="text-muted-foreground text-[11px]">
-                  <span className="text-foreground font-medium">Window: </span>
-                  <span className="font-mono text-amber font-semibold">
+                  <span className="font-medium text-foreground">Window: </span>
+                  <span className="font-mono font-semibold text-amber">
                     {rec.suggestedWindow}
                   </span>
                 </div>
               </div>
             </div>
 
-            <div className="mt-4 pt-3 border-t border-border/50 flex flex-wrap items-center justify-between gap-2">
+            <div className="flex items-center justify-between pt-3 mt-4 border-t border-border/50">
               <button
                 type="button"
                 onClick={() => onSelectAssetById(rec.assetId)}
@@ -124,7 +124,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
                 className="inline-flex items-center gap-1 font-mono text-[11px] font-bold text-amber hover:text-foreground transition-colors cursor-pointer"
               >
                 Review Recommendation
-                <ArrowRight className="h-3 w-3" />
+                <ArrowRight className="w-3 h-3" />
               </button>
             </div>
           </div>
@@ -133,9 +133,9 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
 
       {/* Recommendation Review Modal */}
       {selectedRec && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs">
-          <div className="relative w-full max-w-lg rounded-3xl border border-border bg-card p-6 shadow-2xl backdrop-blur-2xl">
-            <div className="flex items-start justify-between border-b border-border/70 pb-4">
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-xs">
+          <div className="relative w-full max-w-lg p-6 border shadow-2xl rounded-3xl border-border bg-card backdrop-blur-2xl">
+            <div className="flex items-start justify-between pb-4 border-b border-border/70">
               <div>
                 <div className="font-mono text-xs font-bold text-amber">
                   PREDICTIVE WORK ORDER: {selectedRec.id}
@@ -153,7 +153,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
                 onClick={() => setSelectedRec(null)}
                 className="rounded-xl border border-border p-1.5 text-muted-foreground hover:text-foreground"
               >
-                <X className="h-4 w-4" />
+                <X className="w-4 h-4" />
               </button>
             </div>
 
@@ -175,7 +175,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
                     {selectedRec.recommendedAction}
                   </div>
                 </div>
-                <div className="pt-2 border-t border-border/40 flex items-center justify-between">
+                <div className="flex items-center justify-between pt-2 border-t border-border/40">
                   <span className="font-mono text-[10px] uppercase text-muted-foreground">
                     Recommended Execution Window
                   </span>
@@ -186,7 +186,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
               </div>
             </div>
 
-            <div className="mt-6 flex flex-wrap items-center justify-between gap-3 pt-4 border-t border-border/60">
+            <div className="flex items-center justify-between pt-4 mt-6 border-t border-border/60">
               <button
                 type="button"
                 onClick={() => {
@@ -202,7 +202,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
                 <button
                   type="button"
                   onClick={() => setSelectedRec(null)}
-                  className="rounded-xl border border-border bg-surface px-4 py-2 text-xs font-semibold text-foreground hover:border-cyan/50"
+                  className="px-4 py-2 text-xs font-semibold border rounded-xl border-border bg-surface text-foreground hover:border-cyan/50"
                 >
                   Dismiss
                 </button>
@@ -212,7 +212,7 @@ export function MaintenancePanel({ onSelectAssetById }: MaintenancePanelProps) {
                     alert(`Work order confirmed for ${selectedRec.assetName}. Dispatched to field maintenance.`);
                     setSelectedRec(null);
                   }}
-                  className="rounded-xl bg-amber px-4 py-2 text-xs font-bold text-primary-foreground hover:brightness-110"
+                  className="px-4 py-2 text-xs font-bold rounded-xl bg-amber text-primary-foreground hover:brightness-110"
                 >
                   Authorize Work Order
                 </button>
