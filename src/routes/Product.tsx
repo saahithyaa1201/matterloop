@@ -105,6 +105,7 @@ export const Route = createFileRoute("/Product")({
 function ProductPage() {
   return (
     <div className="min-h-screen bg-background">
+      <link rel="canonical" href="https://matterloop.net/product" />
       <Nav />
       <main>
         {/* HERO */}

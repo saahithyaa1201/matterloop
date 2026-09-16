@@ -59,6 +59,7 @@ const faqItems = [
 function Index() {
   return (
     <div className="min-h-screen bg-background">
+      <link rel="canonical" href="https://matterloop.net/" />
       <Nav />
       <main>
         <Hero />
