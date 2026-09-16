@@ -94,6 +94,9 @@ export const Route = createFileRoute("/Product")({
     meta: [
       { title: "MatterLoop Product — Physical Asset Lifecycle Intelligence" },
       { name: "description", content: "Turn physical machinery, telemetry, maintenance history and supply chain data into one unified layer of lifecycle intelligence." }
+    ],
+    links: [
+      { rel: "canonical", href: "https://matterloop.net/Product" }
     ]
   }),
   component: ProductPage,

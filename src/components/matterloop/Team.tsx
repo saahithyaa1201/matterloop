@@ -7,7 +7,7 @@ const team = [
     name: "Elena Márquez",
     role: "VP of Asset Intelligence",
     bio: "15 years building condition-monitoring systems for automotive and aerospace plants.",
-    image: "/t.svg",
+    image: "/t6.svg",
   },
   {
     name: "Tobias Lund",
@@ -37,7 +37,7 @@ const team = [
     name: "Mateo Silva",
     role: "Lead Applied AI Scientist",
     bio: "Builds forecasting models that turn raw sensor regimes into decisive operational actions.",
-    image: "/t6.svg",
+    image: "/t.svg",
   },
 ];
 

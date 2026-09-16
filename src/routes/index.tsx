@@ -26,6 +26,9 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    links: [
+      { rel: "canonical", href: "https://matterloop.net/" }
+    ],
   }),
   component: Index,
 });
@@ -65,31 +68,31 @@ function Index() {
         <Team />
         <Pricing />
 
-        <section className="relative w-full overflow-hidden py-16 md:py-24">
+        <section className="relative w-full py-16 overflow-hidden md:py-24">
           <div
-            className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
+            className="absolute inset-0 bg-center bg-no-repeat bg-cover pointer-events-none opacity-70"
             style={{ backgroundImage: "url('/Ready%20to%20act%20sooner.svg')" }}
           />
-          <div className="relative mx-auto max-w-7xl px-4 sm:px-8">
+          <div className="relative px-4 mx-auto max-w-7xl sm:px-8">
             <div className="glass overflow-hidden rounded-[28px] px-4 py-6 sm:px-8 sm:py-8 lg:px-10">
               <div className="grid gap-6 sm:gap-8 lg:grid-cols-[1.3fr_auto] lg:items-center">
                 <div>
                   <Eyebrow>Ready to act sooner?</Eyebrow>
-                  <h3 className="mt-4 sm:mt-5 max-w-xl text-2xl font-bold tracking-tight text-balance sm:text-4xl">
+                  <h3 className="max-w-xl mt-4 text-2xl font-bold tracking-tight sm:mt-5 text-balance sm:text-4xl">
                     Turn asset health into a stronger operating strategy.
                   </h3>
-                  <p className="mt-3 sm:mt-4 max-w-xl text-xs sm:text-sm md:text-base leading-relaxed text-muted-foreground">
+                  <p className="max-w-xl mt-3 text-xs leading-relaxed sm:mt-4 sm:text-sm md:text-base text-muted-foreground">
                     Connect your critical systems, surface hidden risk earlier, and give every team a shared view of reliability and performance.
                   </p>
                 </div>
 
                 <div className="flex flex-col gap-3 sm:flex-row lg:flex-col">
                   <a
-                    href="#pricing"
+                    href="#contact"
                     className="inline-flex items-center justify-center gap-2 rounded-xl bg-[#75553c] px-5 py-3 text-sm font-semibold text-[#efece3] transition-all hover:brightness-110 hover:shadow-[0_14px_28px_rgba(117,85,60,0.18)]"
                   >
                     Book a demo
-                    <ArrowRight className="h-4 w-4" />
+                    <ArrowRight className="w-4 h-4" />
                   </a>
                   <a
                     href="#faq"
@@ -112,11 +115,11 @@ function Index() {
             subtitle=""
           />
 
-          <div className="mx-auto mt-10 max-w-3xl rounded-2xl border border-border bg-surface/60 p-3 sm:p-4">
+          <div className="max-w-3xl p-3 mx-auto mt-10 border rounded-2xl border-border bg-surface/60 sm:p-4">
             <Accordion type="single" collapsible className="space-y-3">
               {faqItems.map((item) => (
-                <AccordionItem key={item.question} value={item.question} className="rounded-xl border border-border bg-white/10 px-4">
-                  <AccordionTrigger className="text-left text-base font-semibold text-foreground hover:no-underline">
+                <AccordionItem key={item.question} value={item.question} className="px-4 border rounded-xl border-border bg-white/10">
+                  <AccordionTrigger className="text-base font-semibold text-left text-foreground hover:no-underline">
                     {item.question}
                   </AccordionTrigger>
                   <AccordionContent className="text-sm leading-relaxed text-muted-foreground">

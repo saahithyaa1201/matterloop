@@ -40,7 +40,7 @@ export function Hero() {
               <ArrowRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
             </a>
             <a
-              href="/#capabilities"
+              href="/Product#architecture"
               className="inline-flex w-full items-center justify-center rounded-lg border border-border bg-surface/60 px-7 py-3.5 text-sm font-semibold text-foreground backdrop-blur-sm transition-colors duration-300 hover:border-cyan/50 hover:text-cyan sm:w-auto"
             >
               See How It Works

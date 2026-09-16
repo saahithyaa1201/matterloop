@@ -26,7 +26,7 @@ const items = [
   {
     quote:
       "As our infrastructure expanded, managing increasing amounts of operational data became more difficult. This platform gave us a structured way to bring those signals together and turn them into useful insights. Our teams can now spot patterns earlier, collaborate more effectively, and make decisions based on a much stronger understanding of what is happening across the business.",
-    name: "Head of Technology",
+    name: "Jonathan Parker",
     role: "Digital Services Company",
     company: "Digital Services Company",
     image: "/testi3.svg",
@@ -77,7 +77,7 @@ export function Testimonials() {
         subtitle=""
       />
 
-      <div className="mt-6 flex justify-end">
+      <div className="flex justify-end mt-6">
         <button
           type="button"
           onClick={() => setPaused((value) => !value)}
@@ -89,27 +89,27 @@ export function Testimonials() {
         </button>
       </div>
 
-      <div className="mt-4 overflow-hidden py-3">
+      <div className="py-3 mt-4 overflow-hidden">
         <div
-          className="testimonial-marquee flex w-max gap-5"
+          className="flex gap-5 testimonial-marquee w-max"
           style={{ animationPlayState: paused ? "paused" : "running" }}
         >
           {marqueeItems.map((t, i) => (
             <Reveal key={`${t.name}-${i}`} delay={i * 0.02}>
               <div className="flex h-full w-[280px] sm:w-[340px] shrink-0 flex-col rounded-[26px] border border-border/80 bg-surface/70 p-6 shadow-[0_12px_30px_rgba(117,85,60,0.04)] transition-all hover:border-[#75553c]/60 hover:shadow-[0_16px_34px_rgba(117,85,60,0.08)]">
                 <Quote className="h-5 w-5 text-[#75553c]" />
-                <p className="mt-4 flex-1 text-sm leading-relaxed text-foreground/90">"{t.quote}"</p>
+                <p className="flex-1 mt-4 text-sm leading-relaxed text-foreground/90">"{t.quote}"</p>
                 <span
                   className={`mt-5 self-start rounded-full border px-2.5 py-1 font-mono text-[11px] ${t.kpiTone}`}
                 >
                   {t.kpi}
                 </span>
-                <div className="mt-5 flex min-w-0 items-center gap-3 border-t border-border/70 pt-5">
+                <div className="flex items-center min-w-0 gap-3 pt-5 mt-5 border-t border-border/70">
                   <span className="grid h-10 w-10 shrink-0 place-items-center overflow-hidden rounded-full border border-[#75553c]/40 bg-[#75553c]/10">
-                    <img src={t.image} alt={t.name} className="h-7 w-7 object-contain" />
+                    <img src={t.image} alt={t.name} className="object-contain h-7 w-7" />
                   </span>
                   <div className="min-w-0">
-                    <p className="truncate text-sm font-semibold">{t.name}</p>
+                    <p className="text-sm font-semibold truncate">{t.name}</p>
                     <p className="truncate text-[11px] text-muted-foreground">{t.role}</p>
                   </div>
                 </div>

@@ -560,7 +560,7 @@ export function Contact() {
                       required
                       value={formData.fullName}
                       onChange={handleChange}
-                      placeholder="e.g. Elena Rostova"
+                      placeholder="Full name"
                       className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                     />
                   </div>
@@ -580,7 +580,7 @@ export function Contact() {
                       required
                       value={formData.email}
                       onChange={handleChange}
-                      placeholder="e.g. elena@acmeindustrial.com"
+                      placeholder="Email address"
                       className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                     />
                   </div>
@@ -602,7 +602,7 @@ export function Contact() {
                       required
                       value={formData.company}
                       onChange={handleChange}
-                      placeholder="e.g. Precision Robotics Corp"
+                      placeholder="Company name"
                       className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                     />
                   </div>
@@ -621,7 +621,7 @@ export function Contact() {
                       type="text"
                       value={formData.jobTitle}
                       onChange={handleChange}
-                      placeholder="e.g. VP Operations & Reliability"
+                      placeholder="Job title"
                       className="w-full rounded-xl border border-border/80 bg-surface/50 px-3.5 sm:px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground/60 transition-all focus:border-cyan focus:bg-surface/80 focus:outline-hidden focus:ring-1 focus:ring-cyan/40"
                     />
                   </div>
