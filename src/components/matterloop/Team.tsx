@@ -16,13 +16,13 @@ const team = [
     image: "/t2.svg",
   },
   {
-    name: "Aisha Bello",
+    name: "Cynthia Benedict",
     role: "Head of Lifecycle Data",
     bio: "Builds the asset graph that unifies telemetry, service records and supply chain events.",
     image: "/t3.svg",
   },
   {
-    name: "Ryo Nakamura",
+    name: "Karishma Tanna",
     role: "Director of Edge Engineering",
     bio: "Ships low-latency ingestion at the plant edge across thousands of industrial nodes.",
     image: "/t4.svg",
@@ -46,19 +46,19 @@ export function Team() {
   const marqueeMembers = [...team, ...team];
 
   return (
-    <section id="team" className="relative w-full overflow-hidden py-20 md:py-28">
+    <section id="team" className="relative w-full py-20 overflow-hidden md:py-28">
       <div
-        className="pointer-events-none absolute inset-0 bg-cover bg-center bg-no-repeat opacity-70"
+        className="absolute inset-0 bg-center bg-no-repeat bg-cover pointer-events-none opacity-70"
         style={{ backgroundImage: "url('/Leadership.svg')" }}
       />
-      <div className="relative mx-auto w-full max-w-7xl px-4 sm:px-8">
+      <div className="relative w-full px-4 mx-auto max-w-7xl sm:px-8">
         <SectionHeading
           eyebrow="Leadership"
           title="Built by Industrial AI Pioneers"
           subtitle="Reliability engineers, data architects and edge specialists who've run real production floors."
         />
 
-        <div className="mt-6 flex justify-end">
+        <div className="flex justify-end mt-6">
         <button
           type="button"
           onClick={() => setPaused((value) => !value)}
@@ -70,16 +70,16 @@ export function Team() {
         </button>
       </div>
 
-      <div className="mt-4 overflow-hidden rounded-2xl border border-border bg-surface/30 py-3">
+      <div className="py-3 mt-4 overflow-hidden border rounded-2xl border-border bg-surface/30">
         <div
-          className="team-marquee flex w-max gap-5"
+          className="flex gap-5 team-marquee w-max"
           style={{ animationPlayState: paused ? "paused" : "running" }}
         >
           {marqueeMembers.map((m, i) => (
             <Reveal key={`${m.name}-${i}`} delay={i * 0.02}>
               <div className="h-full w-[280px] shrink-0 rounded-[28px] border border-border bg-surface/80 p-6 text-center shadow-[0_18px_32px_rgba(117,85,60,0.04)] transition-all hover:border-[#75553c]/50 hover:shadow-[0_18px_32px_rgba(117,85,60,0.08)]">
                 <span className="mx-auto grid h-16 w-16 place-items-center overflow-hidden rounded-[20px] border border-[#75553c]/30 bg-gradient-to-br from-[#d6c8b5] to-[#ae8466]/25">
-                  <img src={m.image} alt={m.name} className="h-12 w-12 object-contain" />
+                  <img src={m.image} alt={m.name} className="object-contain w-12 h-12" />
                 </span>
                 <h3 className="mt-4 text-base font-bold">{m.name}</h3>
                 <p className="mt-1 font-mono text-[11px] uppercase tracking-[0.12em] text-[#75553c]">

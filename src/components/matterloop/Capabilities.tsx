@@ -78,7 +78,7 @@ export function Capabilities() {
               Technical showcase
             </p>
             <p className="mt-2 text-sm text-muted-foreground">
-              Accelerated compute compatible — deploy MatterLoop engines alongside your existing
+              Accelerated compute compatible deploy MatterLoop engines alongside your existing
               industrial AI stack.
             </p>
           </div>

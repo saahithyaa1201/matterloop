@@ -50,7 +50,7 @@ const layers = [
   {
     name: "Lifecycle analytics",
     tech: "Predictive & prescriptive models",
-    desc: "Builds a live profile of every asset — health score, degradation rate, risk factors, maintenance history, depreciation — and correlates telemetry with work orders and conditions to estimate remaining useful life.",
+    desc: "Builds a live profile of every asset health score, degradation rate, risk factors, maintenance history, depreciation and correlates telemetry with work orders and conditions to estimate remaining useful life.",
   },
   {
     name: "Vision & inspection",
@@ -92,7 +92,7 @@ const roadmap = [
 export const Route = createFileRoute("/Product")({
   head: () => ({
     meta: [
-      { title: "MatterLoop Product — Physical Asset Lifecycle Intelligence" },
+      { title: "MatterLoop Product Physical Asset Lifecycle Intelligence" },
       { name: "description", content: "Turn physical machinery, telemetry, maintenance history and supply chain data into one unified layer of lifecycle intelligence." }
     ],
     links: [
@@ -273,7 +273,7 @@ function ProductPage() {
             {[
               {
                 icon: Radio,
-                title: "Edge gateways — NVIDIA Jetson",
+                title: "Edge gateways NVIDIA Jetson",
                 items: ["Local AI inference", "Anomaly scoring", "Video processing"],
               },
               {

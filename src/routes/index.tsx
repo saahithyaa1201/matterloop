@@ -12,7 +12,7 @@ import { Footer } from "@/components/matterloop/Footer";
 import { Section, SectionHeading, Eyebrow } from "@/components/matterloop/primitives";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
-const title = "MatterLoop — Physical Asset Lifecycle Intelligence";
+const title = "MatterLoop Physical Asset Lifecycle Intelligence";
 const description =
   "MatterLoop unifies machinery telemetry, maintenance history and supply chain data into predictive asset lifecycle intelligence for manufacturing operations.";
 
